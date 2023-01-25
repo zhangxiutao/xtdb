@@ -1,0 +1,33 @@
+add_library(
+	xtdb
+        _xtblock.cpp
+        xtobject.cpp
+        xttablepage.cpp
+        xtobjecttable.cpp
+        xtobjectpage.cpp
+        _xtshape.cpp
+        xttech.cpp
+        xtcolor.cpp
+        _xtrectangle.cpp
+)
+add_custom_target(headers_xtdb SOURCES
+    xtobjecttable.h
+    _xtblock.h
+    xttable.h
+    xttable.hpp
+    xtobject.h
+    xtcore.h
+    xttablepage.h
+    xtobjectpage.h
+    _xtshape.h
+    xttech.h
+    xtsize.h
+    xtcolor.h
+    _xtrectangle.h
+)
+target_include_directories(
+	xtdb
+	PUBLIC
+	${PROJECT_SOURCE_DIR}/xtdb/src/xtdb
+        ${PROJECT_SOURCE_DIR}/xtdb/src/common
+)
