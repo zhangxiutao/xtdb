@@ -9,7 +9,9 @@
 #include <cstdio>
 template <typename T>
 XtTable<T>::XtTable(uint pPageSize):
-    mPages(nullptr),mFreeList(0),mPageCnt(0),mPageCap(0),mPageSize(pPageSize), mPageMask(pPageSize - 1),mPageShift(log2(pPageSize))
+    mPages(nullptr),mFreeList(0),mPageCnt(0),mPageCap(0),
+    mPageSize(pPageSize), mPageMask(pPageSize - 1),mPageShift(log2(pPageSize)),
+    XtObjectTable(sizeof(T))
 {
 }
 
@@ -31,6 +33,11 @@ void XtTable<T>::newPage()
     char* last = (char*)page + sizeof(XtObjectPage) + mPageMask*sizeof(T);
     ((_XtFreeObject*)last)->mNext = 0;
     ((_XtObject*)last)->mIntId = mPageMask*sizeof(T);
+
+    //update page header
+    page->mPageShiftedIdx = mPageCnt << mPageShift;
+    page->mTable = this;
+    mPageCnt += 1;
 }
 
 template <typename T>
@@ -57,6 +64,7 @@ T* XtTable<T>::create()
     }
     T* objAddr = (T*)pop();
     new (objAddr) T();
+    ((_XtObject*)objAddr)->mIntId = ((_XtObject*)objAddr)->mIntId | XT_ALLOC_BIT;
     return objAddr;
 }
 

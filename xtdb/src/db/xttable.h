@@ -1,12 +1,13 @@
 #ifndef XTTABLE_H
 #define XTTABLE_H
 #include "xttypes.h"
+#include "xtobjecttable.h"
 
 class XtTablePage;
 class _XtFreeObject;
 
 template <typename T>
-class XtTable
+class XtTable : public XtObjectTable
 {
 private:
     XtTablePage **mPages;
@@ -16,7 +17,6 @@ private:
     uint mPageSize;
     uint mPageMask;
     uint mPageShift;
-    uint mObjSize;
 public:
     XtTable(uint pPageSize = 128);
     void reallocPages();

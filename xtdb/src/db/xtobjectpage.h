@@ -2,12 +2,12 @@
 #define XTOBJECTPAGE_H
 #include "xttypes.h"
 #include "xttable.h"
-template <typename T>
+class XtObjectTable;
 class XtObjectPage
 {
 public:
-    uint mPageIdx;
-    XtTable<T>* mTable;
+    uint mPageShiftedIdx;
+    XtObjectTable* mTable;
     XtObjectPage();
 };
 

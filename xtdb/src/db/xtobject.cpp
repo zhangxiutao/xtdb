@@ -8,5 +8,5 @@ XtObject::XtObject()
 
 uint XtObject::getId() const
 {
-    return ((_XtObject*)this)->getId();
+    return ((_XtObject*)this)->getExtId();
 }

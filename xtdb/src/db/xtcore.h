@@ -14,9 +14,9 @@ public:
     {
         uint offsetBits = (mIntId & XT_OFFSET_MASK);
         XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
-        uint pageIdx = pageHeader->mPageIdx;
-        offsetBits/pageHeader->mTable->
-        return pageIdx |
+        uint pageIdx = pageHeader->mPageShiftedIdx;
+        uint offsetObjs = offsetBits/(pageHeader->mTable->mObjSize);
+        return pageHeader->mPageShiftedIdx | offsetObjs;
     }
 };
 

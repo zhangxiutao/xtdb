@@ -1,11 +1,12 @@
 #ifndef XTOBJECTTABLE_H
 #define XTOBJECTTABLE_H
-
+#include "xttypes.h"
 
 class XtObjectTable
 {
 public:
-    XtObjectTable();
+    uint mObjSize;
+    XtObjectTable(uint pObjSize):mObjSize(pObjSize){};
 };
 
 #endif // XTOBJECTTABLE_H

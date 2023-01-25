@@ -16,9 +16,11 @@ TEST_CASE("xttable", "[xttable tests]")
         // I want to create a rect and get its id
         // so that we can make sure that the creation is correct
         XtTable<_XtRectangle> xtb;
-        for (int i = 0; i < 256; i++) {
+        for (int i = 0; i < 128; i++) {
             _XtRectangle* rect = xtb.create();
-            REQUIRE(rect->getId() == i);
+            REQUIRE(rect->getExtId() == i);
         }
+        _XtRectangle* rect = xtb.create();
+        REQUIRE(rect->getExtId() == 128);
     }
 }
