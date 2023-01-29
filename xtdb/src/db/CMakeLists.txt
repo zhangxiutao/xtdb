@@ -9,8 +9,12 @@ add_library(
         xttech.cpp
         xtcolor.cpp
         _xtrectangle.cpp
+        xtset.cpp
+        xtsetiterator.cpp
+        xtiterator.cpp
 )
 add_custom_target(headers_xtdb SOURCES
+    xtsetiterator.h
     xtobjecttable.h
     _xtblock.h
     xttable.h
@@ -24,6 +28,9 @@ add_custom_target(headers_xtdb SOURCES
     xtsize.h
     xtcolor.h
     _xtrectangle.h
+    xtset.h
+    xtsetiterator.h
+    xtiterator.h
 )
 target_include_directories(
 	xtdb

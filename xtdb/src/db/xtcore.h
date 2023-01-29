@@ -12,11 +12,24 @@ public:
     _XtObject(){};
     uint getExtId() const
     {
-        uint offsetBits = (mIntId & XT_OFFSET_MASK);
+        uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
         XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
-        uint pageIdx = pageHeader->mPageShiftedIdx;
         uint offsetObjs = offsetBits/(pageHeader->mTable->mObjSize);
         return pageHeader->mPageShiftedIdx | offsetObjs;
+    }
+    XtObjectPage* getPageHeader()
+    {
+        uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
+        XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
+        return pageHeader;
+    }
+    bool isAllocated() const
+    {
+        if (mIntId & XT_INTID_ALLOC_BIT) {
+            return true;
+        } else {
+            return false;
+        }
     }
 };
 
