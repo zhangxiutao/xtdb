@@ -2,7 +2,7 @@
 #define XTTABLE_H
 #include "xttypes.h"
 #include "xtobjecttable.h"
-#include "xtiterator.h"
+#include "xtcontainer.h"
 #include "xttablepage.h"
 #include "xtstream.h"
 
@@ -32,6 +32,7 @@ public:
     _XtFreeObject* popFreeList();
     void pushFreeList(_XtFreeObject *pFreeObj);
     uint begin() override;
+    uint end() override {return 0;};
     uint next(uint pExtId) override;
     bool isAllocated(uint pExtId)
     {

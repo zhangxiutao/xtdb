@@ -88,6 +88,7 @@ _XtFreeObject* XtTable<T>::popFreeList()
    return tmp;
 }
 
+
 template <typename T>
 _XtObject* XtTable<T>::getPtr(uint pExtId)//这个pId的低mPageShift位指的是长为sizeof(T)的基向量的下标。
 {
@@ -124,6 +125,10 @@ uint XtTable<T>::begin()
 template <typename T>
 uint XtTable<T>::next(uint pExtId)
 {
+    if (0 == pExtId)
+    {
+        return 0;
+    }
     //search for the next T in the page of initial pExtId
     uint initPageIdx = pExtId >> mPageShift;
     pExtId++;

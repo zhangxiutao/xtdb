@@ -11,7 +11,7 @@ add_library(
         _xtrectangle.cpp
         xtset.cpp
         xtsetiterator.cpp
-        xtiterator.cpp
+        xtcontainer.cpp
 )
 add_custom_target(headers_xtdb SOURCES
     xtsetiterator.h
@@ -30,7 +30,7 @@ add_custom_target(headers_xtdb SOURCES
     _xtrectangle.h
     xtset.h
     xtsetiterator.h
-    xtiterator.h
+    xtcontainer.h
 )
 target_include_directories(
 	xtdb

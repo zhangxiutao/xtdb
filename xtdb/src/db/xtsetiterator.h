@@ -1,11 +1,17 @@
 #ifndef XTSETITERATOR_H
 #define XTSETITERATOR_H
+#include "xttypes.h"
 
-class XtIterator;
+class XtContainer;
 class XtSetIterator
 {
 public:
-    XtSetIterator();
+    XtSetIterator(XtContainer* pContainer, uint pId):
+        mContainer(pContainer), mId(pId){}
+    XtContainer* mContainer;
+    uint mId;
+    XtSetIterator& operator++();
+    XtSetIterator operator++(int);
 };
 
 #endif // XTSETITERATOR_H
