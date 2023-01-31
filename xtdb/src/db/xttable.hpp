@@ -159,4 +159,15 @@ uint XtTable<T>::next(uint pExtId)
     //it is impossible to reach here
     return 0;
 }
+
+template <typename T>
+XtOStream& operator<<(XtOStream& pOS, const XtTable<T>& pTable)
+{
+	//<< metainfo
+	for(uint id = begin(); id != end(); id = next(id))
+	{
+		getPtr(id)
+		//<< obj
+	}
+}
 #endif // XTSTREAM_HPP

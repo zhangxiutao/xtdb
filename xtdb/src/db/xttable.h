@@ -4,12 +4,13 @@
 #include "xtobjecttable.h"
 #include "xtiterator.h"
 #include "xttablepage.h"
+#include "xtstream.h"
 
 class XtObjectPage;
 class _XtFreeObject;
 class _XtObject;
 template <typename T>
-class XtTable : public XtObjectTable, public XtIterator
+class XtTable : public XtObjectTable, public XtContainer
 {
 private:
     XtTablePage **mPages;
@@ -41,5 +42,8 @@ public:
         return mPages[pExtId >> mPageShift];
     }
 };
-
+template <typename T>
+XtOStream& operator<<(XtOStream &pStream, const XtTable<T>& table);
+template <typename T>
+XtIStream& operator>>(XtIStream &p`Stream, const XtTable<T>& table);
 #endif // XTTABLE_H
