@@ -7,4 +7,5 @@ XtSet::XtSet()
 
 XtSetIterator XtSet::begin()
 {
+    return XtSetIterator(mContainer, mContainer->begin());
 }
