@@ -3,15 +3,15 @@
 #include "xttypes.h"
 
 class XtContainer;
-class XtSetIterator
+class XtIterator
 {
 public:
-    XtSetIterator(XtContainer* pContainer, uint pId):
+    XtIterator(XtContainer* pContainer, uint pId):
         mContainer(pContainer), mId(pId){}
     XtContainer* mContainer;
     uint mId;
-    XtSetIterator& operator++();
-    XtSetIterator operator++(int);
+    XtIterator& operator++();
+    XtIterator operator++(int);
 };
 
 #endif // XTSETITERATOR_H

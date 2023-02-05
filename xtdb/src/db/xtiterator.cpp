@@ -1,6 +1,15 @@
 #include "xtiterator.h"
+#include "xtcontainer.h"
 
-XtIterator::XtIterator()
+inline XtIterator& XtIterator::operator++()
 {
+    mId = mContainer->next(mId);
+    return *this;
+}
 
+inline XtIterator XtIterator::operator++(int)
+{
+    uint tmpId = mId;
+    mId = mContainer->next(mId);
+    return XtIterator(mContainer, tmpId);
 }

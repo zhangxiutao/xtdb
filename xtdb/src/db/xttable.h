@@ -46,5 +46,5 @@ public:
 template <typename T>
 XtOStream& operator<<(XtOStream &pStream, const XtTable<T>& table);
 template <typename T>
-XtIStream& operator>>(XtIStream &p`Stream, const XtTable<T>& table);
+XtIStream& operator>>(XtIStream &pStream, const XtTable<T>& table);
 #endif // XTTABLE_H

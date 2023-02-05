@@ -1,13 +1,15 @@
 #ifndef XTSET_H
 #define XTSET_H
-#include "xtsetiterator.h"
 #include "xtiterator.h"
+#include "xtcontainer.h"
 class XtSet
 {
-
+private:
+    XtContainer* mContainer;
 public:
     XtSet();
-    XtSetIterator begin();
+    XtIterator begin();
+    XtIterator end();
 };
 
 #endif // XTSET_H

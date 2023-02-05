@@ -5,7 +5,12 @@ XtSet::XtSet()
 
 }
 
-XtSetIterator XtSet::begin()
+XtIterator XtSet::begin()
 {
-    return XtSetIterator(mContainer, mContainer->begin());
+    return XtIterator(mContainer, mContainer->begin());
+}
+
+XtIterator XtSet::end()
+{
+    return XtIterator(mContainer, mContainer->end());
 }
