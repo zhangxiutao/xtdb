@@ -5,7 +5,6 @@
 class XtContainer
 {
 public:
-    XtContainer();
     virtual uint begin() = 0;
     virtual uint end() = 0;
     virtual uint next(uint pExtId) = 0;

@@ -7,6 +7,7 @@ class XtBlock
 public:
     XtBlock();
     XtContainer* getAllShapes();
+    void write(const char* pBlock);
 };
 
 #endif // XTBLOCK_H

@@ -169,10 +169,10 @@ template <typename T>
 XtOStream& operator<<(XtOStream& pOS, const XtTable<T>& pTable)
 {
 	//<< metainfo
-	for(uint id = begin(); id != end(); id = next(id))
-	{
-		getPtr(id)
-		//<< obj
-	}
+    pOS << pTable;
+    for (uint id = pTable.begin(); id != pTable.end(); id = pTable.next(id))
+    {
+        pTable << *(pTable.getPtr(id));
+    }
 }
 #endif // XTSTREAM_HPP

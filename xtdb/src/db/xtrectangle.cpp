@@ -1,7 +1,7 @@
 #include "_xtrectangle.h"
 #include "_xtblock.h"
 #include "xttech.h"
-
+#include "xtstream.h"
 _XtRectangle::_XtRectangle():
     mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
 {
@@ -17,6 +17,14 @@ _XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type
 _XtRectangle* _XtRectangle::create(_XtBlock* pBlock)
 {
     _XtRectangle* rect = pBlock->mRectTbl.create();
+}
+
+XtOStream& operator<<(XtOStream& pOS, const _XtRectangle& pRect)
+{
+    pOS << pRect.mX1;
+    pOS << pRect.mY1;
+    pOS << pRect.mX2;
+    pOS << pRect.mY2;
 }
 //void XtRectangle::draw(QPainter *pPainter)
 //{

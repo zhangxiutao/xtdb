@@ -1,19 +1,19 @@
 add_library(
 	xtdb
-        _xtblock.cpp
         xtobject.cpp
         xttablepage.cpp
         xtobjecttable.cpp
         xtobjectpage.cpp
-        _xtshape.cpp
+        xtshape.cpp
         xttech.cpp
         xtcolor.cpp
-        _xtrectangle.cpp
+        xtrectangle.cpp
         xtiterator.cpp
         xtblock.cpp
         xtset.cpp
 )
 add_custom_target(headers_xtdb SOURCES
+    xtrectangle.h
     xtiterator.h
     xtobjecttable.h
     _xtblock.h
