@@ -5,9 +5,9 @@
 class XtContainer
 {
 public:
-    virtual uint begin() = 0;
-    virtual uint end() = 0;
-    virtual uint next(uint pExtId) = 0;
+    virtual uint begin() const = 0;
+    virtual uint end() const = 0;
+    virtual uint next(uint pExtId) const = 0;
 };
 
 #endif // XTITERATOR_H

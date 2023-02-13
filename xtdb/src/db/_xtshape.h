@@ -1,5 +1,5 @@
-#ifndef XTSHAPE_H
-#define XTSHAPE_H
+#ifndef _XTSHAPE_H
+#define _XTSHAPE_H
 #include "xtcore.h"
 #include "xttech.h"
 class _XtShape: public _XtObject
@@ -12,4 +12,4 @@ public:
     void setSelected(bool pSelected);
 };
 
-#endif // XTSHAPE_H
+#endif // _XTSHAPE_H

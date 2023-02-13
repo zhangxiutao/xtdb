@@ -11,6 +11,7 @@ add_library(
         xtiterator.cpp
         xtblock.cpp
         xtset.cpp
+        xtcore.cpp
 )
 add_custom_target(headers_xtdb SOURCES
     xtrectangle.h

@@ -12,39 +12,41 @@ class _XtObject;
 template <typename T>
 class XtTable : public XtObjectTable, public XtContainer
 {
-private:
+public:
     XtTablePage **mPages;
     uint mFreeList;
-    uint mPageCnt;
-    uint mPageCap;
+    uint mPagesCnt;
+    uint mPagesCap;
     uint mPageSize;
     uint mPageMask;
     uint mPageShift;
     uint mTopId;        // largest allocated id.
     uint mBottomId;     // smallest allocated id.
+    uint mAllocCnt;
 public:
     XtTable(uint pPageSize = 128);
     void reallocPages();
-    _XtObject* getPtr(uint pExtId);
+    _XtObject* getPtr(uint pExtId) const;
     void newPage();
     T *create();
     void destroy(T* t);
     _XtFreeObject* popFreeList();
     void pushFreeList(_XtFreeObject *pFreeObj);
-    uint begin() override;
-    uint end() override {return 0;};
-    uint next(uint pExtId) override;
-    bool isAllocated(uint pExtId)
+    uint begin () const override;
+    uint end() const override {return 0;};
+    uint next(uint pExtId) const override;
+    bool operator==(const XtTable& pRhs) const;
+    bool isAllocated(uint pExtId) const
     {
         return getPtr(pExtId)->isAllocated();
     }
-    XtObjectPage* getPageHeader(uint pExtId)
+    XtObjectPage* getPageHeader(uint pExtId) const
     {
         return mPages[pExtId >> mPageShift];
     }
 };
 template <typename T>
-XtOStream& operator<<(XtOStream &pStream, const XtTable<T>& table);
+XtOStream& operator<<(XtOStream &pStream, XtTable<T>& table);
 template <typename T>
-XtIStream& operator>>(XtIStream &pStream, const XtTable<T>& table);
+XtIStream& operator>>(XtIStream &pStream, XtTable<T>& table);
 #endif // XTTABLE_H

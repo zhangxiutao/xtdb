@@ -24,29 +24,40 @@ public:
     {
         fclose(mFp);
     }
+    void close()
+    {
+        fclose(mFp);
+    }
     XtIStream(FILE *pFp):mFp(pFp){};
-    XtIStream& operator>>(unsigned short &pS)
+    XtIStream& operator>>(unsigned short& pS)
     {
         if (R_ABNORMAL == fread(&pS, sizeof(pS), 1, mFp)) {
 //            read_error();
         }
         return *this;
     }
-    XtIStream& operator>>(short &pS)
+    XtIStream& operator>>(short& pS)
     {
         if (R_ABNORMAL == fread(&pS, sizeof(pS), 1, mFp)) {
 //            read_error();
         }
         return *this;
     }
-    XtIStream& operator>>(int &pI)
+    XtIStream& operator>>(int& pI)
     {
         if (R_ABNORMAL == fread(&pI, sizeof(pI), 1, mFp)) {
 //            read_error();
         }
         return *this;
     }
-    XtIStream& operator>>(char *&pC)
+    XtIStream& operator>>(uint& pI)
+    {
+        if (R_ABNORMAL == fread(&pI, sizeof(pI), 1, mFp)) {
+//            read_error();
+        }
+        return *this;
+    }
+    XtIStream& operator>>(char*& pC)
     {
         int l;
         *this >> l;
@@ -61,6 +72,15 @@ public:
         }
         return *this;
     }
+    XtIStream& operator>>(char& pC)
+    {
+        if (R_ABNORMAL == fread(&pC, sizeof(pC), 1, mFp))
+        {
+            //read_error();
+        }
+        return *this;
+    }
+
 };
 
 class XtOStream
@@ -73,15 +93,19 @@ private:
 //                     "write failed on database stream; system io error: ");
 //    }
 public:
-    XtOStream(const char *pFileNm)
+    XtOStream(const char* pFileNm)
     {
         mFp = fopen(pFileNm, "a");
     };
+    XtOStream(FILE *pFp):mFp(pFp){};
     ~XtOStream()
     {
         fclose(mFp);
     }
-    XtOStream(FILE *pFp):mFp(pFp){};
+    void close()
+    {
+        fclose(mFp);
+    }
     XtOStream& operator<<(unsigned short pS)
     {
         if (R_ABNORMAL == fwrite(&pS, sizeof(pS), 1, mFp)) {
@@ -103,7 +127,14 @@ public:
         }
         return *this;
     }
-    XtOStream& operator<<(const char *pC)
+    XtOStream& operator<<(uint pI)
+    {
+        if (R_ABNORMAL == fwrite(&pI, sizeof(pI), 1, mFp)) {
+//            write_error();
+        }
+        return *this;
+    }
+    XtOStream& operator<<(const char* pC)
     {
         if (pC == NULL) {
           *this << 0;
@@ -113,6 +144,14 @@ public:
           if (R_ABNORMAL == fwrite(pC, l, 1, mFp)) {
 //             write_error();
           }
+        }
+        return *this;
+    }
+    XtOStream& operator<<(char& pC)
+    {
+        if (R_ABNORMAL == fwrite(&pC, sizeof(pC), 1, mFp))
+        {
+            //read_error();
         }
         return *this;
     }

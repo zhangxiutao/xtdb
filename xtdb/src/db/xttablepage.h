@@ -6,7 +6,7 @@
 //xtcore.h就是放在一起。
 class XtTablePage : public XtObjectPage
 {
-private:
+public:
     char mObjects[1];
 public:
     XtTablePage();

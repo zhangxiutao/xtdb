@@ -1,5 +1,5 @@
-#ifndef XTRECTANGLE_H
-#define XTRECTANGLE_H
+#ifndef _XTRECTANGLE_H
+#define _XTRECTANGLE_H
 #include "_xtshape.h"
 class _XtBlock;
 class _XtRectangle: public _XtShape
@@ -14,7 +14,9 @@ public:
 public:
     _XtRectangle();
     _XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type layer);
-    static _XtRectangle* create(_XtBlock* pBlock);
+    bool operator==(const _XtRectangle& pRhs);
+    bool operator!=(const _XtRectangle& pRhs);
 };
-
-#endif // XTRECTANGLE_H
+XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect);
+XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect);
+#endif // _XTRECTANGLE_H

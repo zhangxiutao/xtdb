@@ -1,4 +1,5 @@
 #include "_xtrectangle.h"
+#include "xtrectangle.h"
 #include "_xtblock.h"
 #include "xttech.h"
 #include "xtstream.h"
@@ -14,17 +15,53 @@ _XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type
 
 }
 
-_XtRectangle* _XtRectangle::create(_XtBlock* pBlock)
+bool _XtRectangle::operator==(const _XtRectangle& pRhs)
 {
-    _XtRectangle* rect = pBlock->mRectTbl.create();
+    if (mX1 != pRhs.mX1
+        || mY1 != pRhs.mY1
+        || mX2 != pRhs.mX2
+        || mY2 != pRhs.mY2) {
+        return false;
+    }
+    return true;
 }
 
-XtOStream& operator<<(XtOStream& pOS, const _XtRectangle& pRect)
+bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
+{
+    return !(*this == pRhs);
+}
+
+XtRectangle* XtRectangle::create(XtBlock* pBlock)
+{
+    _XtRectangle* rect = ((_XtBlock*)pBlock)->mRectTbl->create();
+    return (XtRectangle*)rect;
+}
+
+XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)
 {
     pOS << pRect.mX1;
     pOS << pRect.mY1;
     pOS << pRect.mX2;
     pOS << pRect.mY2;
+    return pOS;
+}
+
+XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect)
+{
+    pIS >> pRect.mX1;
+    pIS >> pRect.mY1;
+    pIS >> pRect.mX2;
+    pIS >> pRect.mY2;
+    return pIS;
+}
+
+void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mX1 = pX1;
+    rect->mX2 = pX2;
+    rect->mY1 = pY1;
+    rect->mY2 = pY2;
 }
 //void XtRectangle::draw(QPainter *pPainter)
 //{

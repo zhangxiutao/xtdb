@@ -5,7 +5,7 @@ class XtObjectTable;
 class XtObjectPage
 {
 public:
-    uint mPageShiftedIdx; //carries the information of XtTable::mPageShift
+    uint mPageShiftedIdx; //the index of page, but shifted by XtTable::mPageShift
     uint mAllocCnt;
     XtObjectPage();
     XtObjectTable* mTable;

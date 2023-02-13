@@ -1,10 +1,10 @@
 #include "xtstream.h"
+#include "xtblock.h"
+#include "xtrectangle.h"
 #include "catch.hpp"
 #include <iostream>
 #include <string>
 #include <filesystem>
-#include "xtblock.h"
-#include "xtrectangle.h"
 
 namespace fs = std::filesystem;
 using namespace std;
@@ -14,16 +14,15 @@ TEST_CASE("New layout", "[create new layout]")
     SECTION("Default Settings")
     {
         const char *fn = "layout.xdb";
-        XtBlock block;
-
-
-        char *read_s;
-        XtOStream os(fn);
+        XtBlock* xtblock1 = XtBlock::create();
+        XtRectangle* rect = XtRectangle::create(xtblock1);
+        rect->setCoodinates(0, 0, 100, 100);
+        xtblock1->write(fn);
 
         REQUIRE(fs::exists(fn));
 
-        XtIStream is(fn);
-        is >> read_s;
-        REQUIRE(string(s) == string(read_s));
+        XtBlock* xtblock2 = XtBlock::create();
+        xtblock2->load(fn);
+        REQUIRE(*xtblock1 == *xtblock2);
     }
 }

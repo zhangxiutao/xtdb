@@ -10,27 +10,9 @@ public:
     uint mIntId;
 public:
     _XtObject(){};
-    uint getExtId() const
-    {
-        uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
-        XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
-        uint offsetObjs = offsetBits/(pageHeader->mTable->mObjSize);
-        return pageHeader->mPageShiftedIdx | offsetObjs;
-    }
-    XtObjectPage* getPageHeader()
-    {
-        uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
-        XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
-        return pageHeader;
-    }
-    bool isAllocated() const
-    {
-        if (mIntId & XT_INTID_ALLOC_BIT) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    uint getExtId() const;
+    XtObjectPage* getPageHeader();
+    bool isAllocated() const;
 };
 
 class _XtFreeObject : public _XtObject
@@ -39,4 +21,6 @@ public:
     uint mNext;
 };
 
+XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj);
+XtIStream& operator>>(XtIStream& pOS, _XtFreeObject& pFreeObj);
 #endif // XTCORE_H
