@@ -2,14 +2,16 @@
 #define XTSET_H
 #include "xtiterator.h"
 #include "xtcontainer.h"
+
+template <typename T>
 class XtSet
 {
 private:
-    XtContainer* mContainer;
+    void* mContainer;
 public:
-    XtSet();
-    XtIterator begin();
-    XtIterator end();
+    XtSet(void* pContainer);
+    XtIterator<T> begin();
+    XtIterator<T> end();
 };
 
 #endif // XTSET_H

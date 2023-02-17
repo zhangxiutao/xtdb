@@ -26,7 +26,7 @@ public:
 public:
     XtTable(uint pPageSize = 128);
     void reallocPages();
-    _XtObject* getPtr(uint pExtId) const;
+    _XtObject* getPtr(uint pExtId) const override;
     void newPage();
     T *create();
     void destroy(T* t);

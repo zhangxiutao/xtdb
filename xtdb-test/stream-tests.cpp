@@ -1,4 +1,3 @@
-#include "xtstream.h"
 #include "xtblock.h"
 #include "xtrectangle.h"
 #include "catch.hpp"
@@ -9,7 +8,7 @@
 namespace fs = std::filesystem;
 using namespace std;
 
-TEST_CASE("New layout", "[create new layout]")
+TEST_CASE("xtstream-test", "[write xttable and reload it]")
 {
     SECTION("Default Settings")
     {
@@ -18,7 +17,6 @@ TEST_CASE("New layout", "[create new layout]")
         XtRectangle* rect = XtRectangle::create(xtblock1);
         rect->setCoodinates(0, 0, 100, 100);
         xtblock1->write(fn);
-
         REQUIRE(fs::exists(fn));
 
         XtBlock* xtblock2 = XtBlock::create();

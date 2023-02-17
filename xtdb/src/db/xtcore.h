@@ -4,6 +4,11 @@
 #include "xtobjectpage.h"
 #include "xttable.h"
 
+class XtObject
+{
+//TODO: move Xtobject to here, and make inheretance of xtrectangle correct
+};
+
 class _XtObject
 {
 public:

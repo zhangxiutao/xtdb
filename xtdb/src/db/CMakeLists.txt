@@ -12,6 +12,7 @@ add_library(
         xtblock.cpp
         xtset.cpp
         xtcore.cpp
+        xtshape.cpp
 )
 add_custom_target(headers_xtdb SOURCES
     xtrectangle.h
@@ -33,6 +34,7 @@ add_custom_target(headers_xtdb SOURCES
     xtcontainer.h
     xtblock.h
     xtset.h
+    xtshape.h
 )
 target_include_directories(
 	xtdb

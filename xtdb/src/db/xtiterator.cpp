@@ -1,15 +1,49 @@
 #include "xtiterator.h"
 #include "xtcontainer.h"
 
-inline XtIterator& XtIterator::operator++()
+template <typename T>
+XtIterator<T>::XtIterator(void* pContainer, uint pId):
+    mContainer(pContainer), mExtId(pId)
 {
-    mId = mContainer->next(mId);
+
+}
+
+template <typename T>
+inline XtIterator<T>& XtIterator<T>::operator++()
+{
+    mExtId = ((XtContainer*)mContainer)->next(mExtId);
     return *this;
 }
 
-inline XtIterator XtIterator::operator++(int)
+template <typename T>
+inline XtIterator<T> XtIterator<T>::operator++(int)
 {
-    uint tmpId = mId;
-    mId = mContainer->next(mId);
+    uint tmpId = mExtId;
+    mExtId = ((XtContainer*)mContainer)->next(mExtId);
     return XtIterator(mContainer, tmpId);
 }
+
+template <typename T>
+inline bool XtIterator<T>::operator==(const XtIterator& pItr)
+{
+    return mExtId == pItr.mExtId;
+}
+
+template <typename T>
+inline bool XtIterator<T>::operator!=(const XtIterator& pItr)
+{
+    return mExtId != pItr.mExtId;
+}
+
+template <typename T>
+inline T& XtIterator<T>::operator*()
+{
+    return *(((XtContainer*)mContainer)->getPtr(mExtId));
+}
+
+template <typename T>
+inline T* XtIterator<T>::operator->()
+{
+    return ((XtContainer*)mContainer)->getPtr(mExtId);
+}
+

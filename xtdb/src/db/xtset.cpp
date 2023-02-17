@@ -1,16 +1,22 @@
 #include "xtset.h"
+#include "xtcontainer.h"
 
-XtSet::XtSet()
+template <typename T>
+XtIterator<T> XtSet<T>::begin()
 {
-
+    XtContainer* xtcontainer = (XtContainer*)mContainer;
+    return XtIterator<T>(xtcontainer, xtcontainer->begin());
 }
 
-XtIterator XtSet::begin()
+template <typename T>
+XtIterator<T> XtSet<T>::end()
 {
-    return XtIterator(mContainer, mContainer->begin());
+    XtContainer* xtcontainer = (XtContainer*)mContainer;
+    return XtIterator<T>(xtcontainer, xtcontainer->end());
 }
 
-XtIterator XtSet::end()
+template <typename T>
+XtSet<T>::XtSet(void* pContainer):mContainer(pContainer)
 {
-    return XtIterator(mContainer, mContainer->end());
-}
+
+};

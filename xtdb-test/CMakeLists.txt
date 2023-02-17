@@ -1,4 +1,4 @@
-add_executable(all-tests main.cpp stream-tests.cpp xttable-tests.cpp)
+add_executable(all-tests main.cpp stream-tests.cpp xttable-tests.cpp xtset-tests.cpp)
 target_include_directories(all-tests PUBLIC
     ${PROJECT_SOURCE_DIR}/xtdb/src/common
     ${PROJECT_SOURCE_DIR}/xtdb/src/db)
