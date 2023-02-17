@@ -25,10 +25,10 @@ XtBlock::XtBlock()
 
 }
 
-XtSet XtBlock::getAllShapes()
+XtSet<XtShape> XtBlock::getAllShapes()
 {
     //TODO: 定义一个新的数据结构可以串联起多个table，也可以串联起多个自己。这样就可以串联recttable，triangletable...
-    return XtSet(((_XtBlock*)this)->mRectTbl);
+    return XtSet<XtShape>(((_XtBlock*)this)->mRectTbl);
 }
 
 XtOStream& operator<<(XtOStream& pOS, _XtBlock& pBlock)

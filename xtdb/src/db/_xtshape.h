@@ -1,15 +1,14 @@
 #ifndef _XTSHAPE_H
 #define _XTSHAPE_H
 #include "xtcore.h"
-#include "xttech.h"
+#include "_xttech.h"
 class _XtShape: public _XtObject
 {
-protected:
+public:
     bool mSelected;
     _XtTech::layer_type mLayer;
-public:
+protected:
     _XtShape(_XtTech::layer_type pLayer);
-    void setSelected(bool pSelected);
 };
 
 #endif // _XTSHAPE_H

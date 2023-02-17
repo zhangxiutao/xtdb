@@ -1,6 +1,6 @@
 #ifndef XTSET_H
 #define XTSET_H
-#include "xtiterator.h"
+#include "xtiterator.hpp"
 #include "xtcontainer.h"
 
 template <typename T>

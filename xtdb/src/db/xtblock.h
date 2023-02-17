@@ -1,11 +1,12 @@
 #ifndef XTBLOCK_H
 #define XTBLOCK_H
-#include "xtset.h"
+#include "xtset.hpp"
+#include "xtshape.h"
 class XtBlock
 {
 public:
     XtBlock();
-    XtSet getAllShapes();
+    XtSet<XtShape> getAllShapes();
     static XtBlock* create();
     void load(const char* pFileNm);
     void write(const char* pFileNm);

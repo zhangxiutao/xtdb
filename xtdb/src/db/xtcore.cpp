@@ -1,5 +1,15 @@
 #include "xtcore.h"
 
+XtObject::XtObject()
+{
+
+}
+
+uint XtObject::getId() const
+{
+    return ((_XtObject*)this)->getExtId();
+}
+
 uint _XtObject::getExtId() const
 {
     uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
@@ -7,6 +17,7 @@ uint _XtObject::getExtId() const
     uint offsetObjs = offsetBits/(pageHeader->mTable->mObjSize);
     return pageHeader->mPageShiftedIdx | offsetObjs;
 }
+
 XtObjectPage* _XtObject::getPageHeader()
 {
     uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);

@@ -1,5 +1,5 @@
-#ifndef XTSTREAM_HPP
-#define XTSTREAM_HPP
+#ifndef XTTABLE_HPP
+#define XTTABLE_HPP
 #include "xttablepage.h"
 #include "xttable.h"
 #include "xtcore.h"
@@ -271,4 +271,4 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
     }
     return pIS;
 }
-#endif // XTSTREAM_HPP
+#endif // XTTABLE_HPP

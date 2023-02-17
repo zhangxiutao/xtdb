@@ -1,8 +1,61 @@
 #include "_xtrectangle.h"
 #include "xtrectangle.h"
 #include "_xtblock.h"
-#include "xttech.h"
+#include "_xttech.h"
 #include "xtstream.h"
+XtRectangle* XtRectangle::create(XtBlock* pBlock)
+{
+    _XtRectangle* rect = ((_XtBlock*)pBlock)->mRectTbl->create();
+    return (XtRectangle*)rect;
+}
+
+void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mX1 = pX1;
+    rect->mX2 = pX2;
+    rect->mY1 = pY1;
+    rect->mY2 = pY2;
+}
+
+int XtRectangle::getX1()
+{
+    return ((_XtRectangle*)this)->mX1;
+}
+
+int XtRectangle::getY1()
+{
+    return ((_XtRectangle*)this)->mY1;
+}
+
+int XtRectangle::getX2()
+{
+    return ((_XtRectangle*)this)->mX2;
+}
+
+int XtRectangle::getY2()
+{
+    return ((_XtRectangle*)this)->mY2;
+}
+
+XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)
+{
+    pOS << pRect.mX1;
+    pOS << pRect.mY1;
+    pOS << pRect.mX2;
+    pOS << pRect.mY2;
+    return pOS;
+}
+
+XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect)
+{
+    pIS >> pRect.mX1;
+    pIS >> pRect.mY1;
+    pIS >> pRect.mX2;
+    pIS >> pRect.mY2;
+    return pIS;
+}
+
 _XtRectangle::_XtRectangle():
     mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
 {
@@ -31,38 +84,6 @@ bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
     return !(*this == pRhs);
 }
 
-XtRectangle* XtRectangle::create(XtBlock* pBlock)
-{
-    _XtRectangle* rect = ((_XtBlock*)pBlock)->mRectTbl->create();
-    return (XtRectangle*)rect;
-}
-
-XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)
-{
-    pOS << pRect.mX1;
-    pOS << pRect.mY1;
-    pOS << pRect.mX2;
-    pOS << pRect.mY2;
-    return pOS;
-}
-
-XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect)
-{
-    pIS >> pRect.mX1;
-    pIS >> pRect.mY1;
-    pIS >> pRect.mX2;
-    pIS >> pRect.mY2;
-    return pIS;
-}
-
-void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
-{
-    _XtRectangle* rect = (_XtRectangle*)this;
-    rect->mX1 = pX1;
-    rect->mX2 = pX2;
-    rect->mY1 = pY1;
-    rect->mY2 = pY2;
-}
 //void XtRectangle::draw(QPainter *pPainter)
 //{
 //    QPen pen;

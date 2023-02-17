@@ -1,3 +1,5 @@
+#ifndef XTITERATOR_HPP
+#define XTITERATOR_HPP
 #include "xtiterator.h"
 #include "xtcontainer.h"
 
@@ -38,12 +40,12 @@ inline bool XtIterator<T>::operator!=(const XtIterator& pItr)
 template <typename T>
 inline T& XtIterator<T>::operator*()
 {
-    return *(((XtContainer*)mContainer)->getPtr(mExtId));
+    return *(T*)(((XtContainer*)mContainer)->getPtr(mExtId));
 }
 
 template <typename T>
 inline T* XtIterator<T>::operator->()
 {
-    return ((XtContainer*)mContainer)->getPtr(mExtId);
+    return (T*)(((XtContainer*)mContainer)->getPtr(mExtId));
 }
-
+#endif //XTITERATOR_HPP

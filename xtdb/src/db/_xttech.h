@@ -1,5 +1,5 @@
-#ifndef XTTECH_H
-#define XTTECH_H
+#ifndef _XTTECH_H
+#define _XTTECH_H
 #include "xtsize.h"
 #include "xtcolor.h"
 //TODO: implement reading ini files and singleton

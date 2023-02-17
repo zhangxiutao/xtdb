@@ -6,7 +6,11 @@
 
 class XtObject
 {
-//TODO: move Xtobject to here, and make inheretance of xtrectangle correct
+private:
+    uint mId;
+public:
+    XtObject();
+    uint getId() const;
 };
 
 class _XtObject

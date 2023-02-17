@@ -1,3 +1,5 @@
+#ifndef XTSET_HPP
+#define XTSET_HPP
 #include "xtset.h"
 #include "xtcontainer.h"
 
@@ -20,3 +22,4 @@ XtSet<T>::XtSet(void* pContainer):mContainer(pContainer)
 {
 
 };
+#endif //XTSET_HPP
