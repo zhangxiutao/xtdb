@@ -1,5 +1,4 @@
-#include "xtblock.h"
-#include "xtrectangle.h"
+#include "xtdb.h"
 #include "catch.hpp"
 #include <iostream>
 #include <string>
@@ -7,6 +6,7 @@
 
 namespace fs = std::filesystem;
 using namespace std;
+using namespace xtdb;
 
 TEST_CASE("xtstream-test", "[write xttable and reload it]")
 {

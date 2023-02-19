@@ -2,7 +2,7 @@
 #define XTSET_H
 #include "xtiterator.hpp"
 #include "xtcontainer.h"
-
+namespace xtdb {
 template <typename T>
 class XtSet
 {
@@ -13,5 +13,5 @@ public:
     XtIterator<T> begin();
     XtIterator<T> end();
 };
-
+}
 #endif // XTSET_H

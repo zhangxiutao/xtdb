@@ -2,7 +2,7 @@
 #define XTSET_HPP
 #include "xtset.h"
 #include "xtcontainer.h"
-
+namespace xtdb {
 template <typename T>
 XtIterator<T> XtSet<T>::begin()
 {
@@ -22,4 +22,5 @@ XtSet<T>::XtSet(void* pContainer):mContainer(pContainer)
 {
 
 };
+}
 #endif //XTSET_HPP

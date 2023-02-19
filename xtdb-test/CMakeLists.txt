@@ -1,8 +1,12 @@
-add_executable(all-tests main.cpp stream-tests.cpp xttable-tests.cpp xtset-tests.cpp)
-target_include_directories(all-tests PUBLIC
-    ${PROJECT_SOURCE_DIR}/xtdb/src/common
-    ${PROJECT_SOURCE_DIR}/xtdb/src/db)
-target_link_directories(all-tests PUBLIC
-    ${PROJECT_SOURCE_DIR}/xtdb/src/db)
-target_link_libraries(all-tests PUBLIC
-    xtdb)
+add_executable(all-tests main.cpp)
+add_subdirectory(int-tests)
+add_subdirectory(ext-tests)
+MESSAGE(STATUS ${PROJECT_BINARY_DIR}/xtdb-test/int-tests)
+target_link_directories(all-tests PRIVATE
+    ${PROJECT_BINARY_DIR}/xtdb-test/int-tests)
+target_link_directories(all-tests PRIVATE
+    ${PROJECT_BINARY_DIR}/xtdb-test/ext-tests)
+#the following two lines enable test cases in static library to be found
+target_link_libraries(all-tests -Wl,--whole-archive inttests -Wl,--no-whole-archive)
+target_link_libraries(all-tests -Wl,--whole-archive exttests -Wl,--no-whole-archive)
+

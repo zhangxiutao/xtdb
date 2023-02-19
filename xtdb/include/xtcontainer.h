@@ -1,7 +1,7 @@
 #ifndef XTCONTAINER_H
 #define XTCONTAINER_H
 #include <xttypes.h>
-
+namespace xtdb {
 class _XtObject;
 class XtContainer
 {
@@ -11,5 +11,5 @@ public:
     virtual uint next(uint pExtId) const = 0;
     virtual _XtObject* getPtr(uint pExtId) const = 0;
 };
-
+}
 #endif // XTITERATOR_H

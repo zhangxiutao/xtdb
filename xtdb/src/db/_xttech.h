@@ -2,6 +2,7 @@
 #define _XTTECH_H
 #include "xtsize.h"
 #include "xtcolor.h"
+namespace xtdb {
 //TODO: implement reading ini files and singleton
 class _XtTech
 {
@@ -18,5 +19,5 @@ public:
     };
     static XtColor textureOfLayer[4];
 };
-
+}
 #endif // XTTECH_H

@@ -4,6 +4,7 @@
 #include "xttable.hpp"
 #include "xtstream.h"
 #include <fstream>
+namespace xtdb {
 
 _XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>)
 {
@@ -18,11 +19,6 @@ _XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>)
 bool _XtBlock::operator==(const _XtBlock& pRhs) const
 {
     return (*mRectTbl == *pRhs.mRectTbl);
-}
-
-XtBlock::XtBlock()
-{
-
 }
 
 XtSet<XtShape> XtBlock::getAllShapes()
@@ -71,3 +67,4 @@ XtBlock* XtBlock::create()
     return (XtBlock*)(new _XtBlock);
 }
 
+}

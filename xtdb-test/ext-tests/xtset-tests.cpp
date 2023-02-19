@@ -1,7 +1,4 @@
-#include "xtblock.h"
-#include "xtrectangle.h"
-#include "xtset.hpp"
-#include "xtiterator.hpp"
+#include "xtdb.h"
 #include "catch.hpp"
 #include <iostream>
 #include <string>
@@ -9,6 +6,7 @@
 
 namespace fs = std::filesystem;
 using namespace std;
+using namespace xtdb;
 
 TEST_CASE("iterate through xttable", "[iterate through xttable]")
 {

@@ -1,5 +1,6 @@
 add_library(
 	xtdb
+        STATIC
         xttablepage.cpp
         xtobjecttable.cpp
         xtobjectpage.cpp
@@ -12,8 +13,6 @@ add_library(
         xtshape.cpp
 )
 add_custom_target(headers_xtdb SOURCES
-    xtrectangle.h
-    xtiterator.hpp
     xtobjecttable.h
     _xtblock.h
     xttable.h
@@ -23,18 +22,28 @@ add_custom_target(headers_xtdb SOURCES
     xtobjectpage.h
     _xtshape.h
     _xttech.h
-    xtsize.h
-    xtcolor.h
     _xtrectangle.h
-    xtiterator.h
-    xtcontainer.h
-    xtblock.h
-    xtset.hpp
-    xtshape.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtset.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtrectangle.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtsize.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtcolor.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtiterator.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtblock.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtshape.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtdb.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtiterator.hpp
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtset.hpp
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtcontainer.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtobject.h
 )
 target_include_directories(
-	xtdb
-	PUBLIC
-	${PROJECT_SOURCE_DIR}/xtdb/src/xtdb
+        xtdb
+        PRIVATE
+        ${PROJECT_SOURCE_DIR}/xtdb/include
+        ${PROJECT_SOURCE_DIR}/xtdb/src/db
         ${PROJECT_SOURCE_DIR}/xtdb/src/common
 )
+install(TARGETS xtdb
+        ARCHIVE DESTINATION ${XTDB_INST_DIR}/lib)
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/xtdb/include
+        DESTINATION ${XTDB_INST_DIR})

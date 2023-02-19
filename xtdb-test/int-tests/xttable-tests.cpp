@@ -1,12 +1,13 @@
+#include "_xtrectangle.h"
 #include "xttable.hpp"
 #include "catch.hpp"
-#include "_xtrectangle.h"
 #include <iostream>
 #include <string>
 #include <filesystem>
 
 namespace fs = std::filesystem;
 using namespace std;
+using namespace xtdb;
 
 TEST_CASE("xttable", "[xttable tests]")
 {

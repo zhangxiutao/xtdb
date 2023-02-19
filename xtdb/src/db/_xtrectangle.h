@@ -1,6 +1,7 @@
 #ifndef _XTRECTANGLE_H
 #define _XTRECTANGLE_H
 #include "_xtshape.h"
+namespace xtdb {
 class _XtBlock;
 class _XtRectangle: public _XtShape
 {
@@ -19,4 +20,5 @@ public:
 };
 XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect);
 XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect);
+}
 #endif // _XTRECTANGLE_H

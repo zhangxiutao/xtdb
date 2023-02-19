@@ -3,6 +3,36 @@
 #include "_xtblock.h"
 #include "_xttech.h"
 #include "xtstream.h"
+namespace xtdb {
+
+_XtRectangle::_XtRectangle():
+    mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
+{
+
+}
+
+_XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type pLayer):
+    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), _XtShape(pLayer)
+{
+
+}
+
+bool _XtRectangle::operator==(const _XtRectangle& pRhs)
+{
+    if (mX1 != pRhs.mX1
+        || mY1 != pRhs.mY1
+        || mX2 != pRhs.mX2
+        || mY2 != pRhs.mY2) {
+        return false;
+    }
+    return true;
+}
+
+bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
+{
+    return !(*this == pRhs);
+}
+
 XtRectangle* XtRectangle::create(XtBlock* pBlock)
 {
     _XtRectangle* rect = ((_XtBlock*)pBlock)->mRectTbl->create();
@@ -56,34 +86,6 @@ XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect)
     return pIS;
 }
 
-_XtRectangle::_XtRectangle():
-    mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
-{
-
-}
-
-_XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type pLayer):
-    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), _XtShape(pLayer)
-{
-
-}
-
-bool _XtRectangle::operator==(const _XtRectangle& pRhs)
-{
-    if (mX1 != pRhs.mX1
-        || mY1 != pRhs.mY1
-        || mX2 != pRhs.mX2
-        || mY2 != pRhs.mY2) {
-        return false;
-    }
-    return true;
-}
-
-bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
-{
-    return !(*this == pRhs);
-}
-
 //void XtRectangle::draw(QPainter *pPainter)
 //{
 //    QPen pen;
@@ -101,3 +103,4 @@ bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
 //    }
 //    pPainter->drawRect(mRect);
 //}
+}

@@ -5,7 +5,7 @@
 #include "xtcontainer.h"
 #include "xttablepage.h"
 #include "xtstream.h"
-
+namespace xtdb {
 class XtObjectPage;
 class _XtFreeObject;
 class _XtObject;
@@ -49,4 +49,5 @@ template <typename T>
 XtOStream& operator<<(XtOStream &pStream, XtTable<T>& table);
 template <typename T>
 XtIStream& operator>>(XtIStream &pStream, XtTable<T>& table);
+}
 #endif // XTTABLE_H

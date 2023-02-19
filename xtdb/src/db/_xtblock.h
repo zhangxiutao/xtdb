@@ -2,6 +2,8 @@
 #define _XTBLOCK_H
 #include "xttable.hpp"
 #include "_xtrectangle.h"
+namespace xtdb {
+
 class _XtBlock
 {
 public:
@@ -12,4 +14,5 @@ public:
     bool operator==(const _XtBlock& pRhs) const;
 };
 
+}
 #endif // _XTBLOCK_H

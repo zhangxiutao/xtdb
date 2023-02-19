@@ -1,5 +1,7 @@
 #include "xtcore.h"
+#include "xtobject.h"
 
+namespace xtdb {
 XtObject::XtObject()
 {
 
@@ -43,4 +45,6 @@ XtIStream& operator>>(XtIStream& pIS, _XtFreeObject& pFreeObj)
 {
     pIS >> pFreeObj.mNext;
     return pIS;
+}
+
 }

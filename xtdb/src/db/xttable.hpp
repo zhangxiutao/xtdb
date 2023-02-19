@@ -8,6 +8,7 @@
 #include <cmath>
 #include <cstdio>
 #include <cstdlib>
+namespace xtdb {
 template <typename T>
 XtTable<T>::XtTable(uint pPageSize):
     mPages(nullptr),mFreeList(0),mPagesCnt(0),mPagesCap(0),
@@ -270,5 +271,7 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
         }
     }
     return pIS;
+}
+
 }
 #endif // XTTABLE_HPP

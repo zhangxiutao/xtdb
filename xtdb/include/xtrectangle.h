@@ -1,6 +1,7 @@
 #ifndef XTRECTANGLE_H
 #define XTRECTANGLE_H
 #include "xtshape.h"
+namespace xtdb {
 class XtBlock;
 class XtRectangle: public XtShape
 {
@@ -12,4 +13,5 @@ public:
     int getX2();
     int getY2();
 };
+}
 #endif // XTRECTANGLE_H

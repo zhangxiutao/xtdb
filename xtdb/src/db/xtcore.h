@@ -3,15 +3,8 @@
 #include "xttypes.h"
 #include "xtobjectpage.h"
 #include "xttable.h"
+namespace xtdb {
 
-class XtObject
-{
-private:
-    uint mId;
-public:
-    XtObject();
-    uint getId() const;
-};
 
 class _XtObject
 {
@@ -32,4 +25,5 @@ public:
 
 XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj);
 XtIStream& operator>>(XtIStream& pOS, _XtFreeObject& pFreeObj);
+}
 #endif // XTCORE_H

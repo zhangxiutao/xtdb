@@ -1,6 +1,7 @@
 #ifndef XTOBJECTPAGE_H
 #define XTOBJECTPAGE_H
 #include "xttypes.h"
+namespace xtdb {
 class XtObjectTable;
 class XtObjectPage
 {
@@ -13,5 +14,5 @@ public:
         return 0 == mAllocCnt;
     }
 };
-
+}
 #endif // XTOBJECTPAGE_H

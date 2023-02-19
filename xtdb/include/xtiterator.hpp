@@ -2,7 +2,7 @@
 #define XTITERATOR_HPP
 #include "xtiterator.h"
 #include "xtcontainer.h"
-
+namespace xtdb {
 template <typename T>
 XtIterator<T>::XtIterator(void* pContainer, uint pId):
     mContainer(pContainer), mExtId(pId)
@@ -47,5 +47,6 @@ template <typename T>
 inline T* XtIterator<T>::operator->()
 {
     return (T*)(((XtContainer*)mContainer)->getPtr(mExtId));
+}
 }
 #endif //XTITERATOR_HPP

@@ -1,7 +1,7 @@
 #ifndef XTSETITERATOR_H
 #define XTSETITERATOR_H
 #include "xttypes.h"
-
+namespace xtdb {
 class XtContainer;
 template <typename T>
 class XtIterator
@@ -18,5 +18,5 @@ public:
     T& operator*();
     T* operator->();
 };
-
+}
 #endif // XTSETITERATOR_H
