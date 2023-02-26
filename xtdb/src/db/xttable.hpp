@@ -10,10 +10,10 @@
 #include <cstdlib>
 namespace xtdb {
 template <typename T>
-XtTable<T>::XtTable(uint pPageSize):
+XtTable<T>::XtTable(_XtObject* pOwner, uint pPageSize):
     mPages(nullptr),mFreeList(0),mPagesCnt(0),mPagesCap(0),
     mPageSize(pPageSize), mPageMask(pPageSize - 1),mPageShift(log2(pPageSize)),
-    mTopId(0), mBottomId(0), mAllocCnt(0), XtObjectTable(sizeof(T))
+    mTopId(0), mBottomId(0), mAllocCnt(0), XtObjectTable(sizeof(T), pOwner)
 {
 }
 

@@ -4,7 +4,7 @@
 #include "_xtrectangle.h"
 namespace xtdb {
 
-class _XtBlock
+class _XtBlock: public _XtObject
 {
 public:
     XtTable<_XtRectangle>* mRectTbl; //我不能new一个_XtShape，所以XtTable<_XtShape>::create()应该是会编译报错的。XtTable的模板参数一定是具体类。

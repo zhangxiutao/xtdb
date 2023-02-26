@@ -1,4 +1,6 @@
-add_library(exttests STATIC ${CMAKE_CURRENT_SOURCE_DIR}/xtset-tests.cpp)
+add_library(exttests STATIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/xtset-tests.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/destroy-tests.cpp)
 target_include_directories(exttests PUBLIC
     ${XTDB_INST_DIR}/include)
 target_include_directories(exttests PUBLIC

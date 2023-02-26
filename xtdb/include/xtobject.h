@@ -3,14 +3,15 @@
 #include "xttypes.h"
 
 namespace xtdb {
-    class XtObject
-    {
-    private:
-        uint mId;
-    public:
-        XtObject();
-        uint getId() const;
-    };
+class XtObject
+{
+private:
+    uint mId;
+public:
+    XtObject();
+    uint getId() const;
+    bool isAlive() const;
+};
 }
 
 #endif // XTOBJECT_H

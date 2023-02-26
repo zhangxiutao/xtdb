@@ -1,7 +1,7 @@
 #ifndef XTTABLE_H
 #define XTTABLE_H
 #include "xttypes.h"
-#include "xtobjecttable.h"
+#include "xtcore.h"
 #include "xtcontainer.h"
 #include "xttablepage.h"
 #include "xtstream.h"
@@ -24,14 +24,14 @@ public:
     uint mBottomId;     // smallest allocated id.
     uint mAllocCnt;
 public:
-    XtTable(uint pPageSize = 128);
+    XtTable(_XtObject* pOwner = nullptr, uint pPageSize = 128);
     void reallocPages();
     _XtObject* getPtr(uint pExtId) const override;
     void newPage();
     T *create();
     void destroy(T* t);
     _XtFreeObject* popFreeList();
-    void pushFreeList(_XtFreeObject *pFreeObj);
+    void pushFreeList(_XtFreeObject* pFreeObj);
     uint begin () const override;
     uint end() const override {return 0;};
     uint next(uint pExtId) const override;

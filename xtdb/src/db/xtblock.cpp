@@ -6,7 +6,7 @@
 #include <fstream>
 namespace xtdb {
 
-_XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>)
+_XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>(this))
 {
 
 }

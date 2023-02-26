@@ -68,6 +68,37 @@ int XtRectangle::getY2()
     return ((_XtRectangle*)this)->mY2;
 }
 
+void XtRectangle::setX1(int pX1)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mX1 = pX1;
+}
+
+void XtRectangle::setY1(int pY1)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mY1 = pY1;
+}
+
+void XtRectangle::setX2(int pX2)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mX2 = pX2;
+}
+
+void XtRectangle::setY2(int pY2)
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    rect->mY2 = pY2;
+}
+
+void XtRectangle::destroy()
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtBlock* block = (_XtBlock*)rect->getOwner();
+    block->mRectTbl->destroy(rect);
+}
+
 XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)
 {
     pOS << pRect.mX1;

@@ -2,16 +2,6 @@
 #include "xtobject.h"
 
 namespace xtdb {
-XtObject::XtObject()
-{
-
-}
-
-uint XtObject::getId() const
-{
-    return ((_XtObject*)this)->getExtId();
-}
-
 uint _XtObject::getExtId() const
 {
     uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
@@ -20,7 +10,7 @@ uint _XtObject::getExtId() const
     return pageHeader->mPageShiftedIdx | offsetObjs;
 }
 
-XtObjectPage* _XtObject::getPageHeader()
+XtObjectPage* _XtObject::getPageHeader() const
 {
     uint offsetBits = (mIntId & XT_INTID_OFFSET_MASK);
     XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
@@ -35,6 +25,32 @@ bool _XtObject::isAllocated() const
     }
 }
 
+XtObjectTable* _XtObject::getTable() const
+{
+    return getPageHeader()->mTable;
+}
+
+_XtObject* _XtObject::getOwner() const
+{
+    return getTable()->mOwner;
+}
+
+XtObject::XtObject()
+{
+
+}
+
+uint XtObject::getId() const
+{
+    return ((_XtObject*)this)->getExtId();
+}
+
+bool XtObject::isAlive() const
+{
+    _XtObject* obj = (_XtObject*)this;
+    return obj->isAllocated();
+}
+
 XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj)
 {
     pOS << pFreeObj.mNext;
@@ -46,5 +62,4 @@ XtIStream& operator>>(XtIStream& pIS, _XtFreeObject& pFreeObj)
     pIS >> pFreeObj.mNext;
     return pIS;
 }
-
 }
