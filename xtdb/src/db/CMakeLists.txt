@@ -39,11 +39,25 @@ add_custom_target(headers_xtdb SOURCES
 target_include_directories(
         xtdb
         PRIVATE
-        ${PROJECT_SOURCE_DIR}/xtdb/include
         ${PROJECT_SOURCE_DIR}/xtdb/src/db
         ${PROJECT_SOURCE_DIR}/xtdb/src/common
 )
-install(TARGETS xtdb
-        ARCHIVE DESTINATION ${XTDB_INST_DIR}/lib)
-install(DIRECTORY ${PROJECT_SOURCE_DIR}/xtdb/include
-        DESTINATION ${XTDB_INST_DIR})
+
+target_include_directories(xtdb PUBLIC
+  $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/xtdb/include>
+  $<INSTALL_INTERFACE:include>
+)
+
+#target_include_directories(
+#        xtdb
+#        PUBLIC
+#        ${PROJECT_SOURCE_DIR}/xtdb/include
+#)
+
+install(TARGETS xtdb EXPORT xtdbTargets
+        ARCHIVE DESTINATION lib)
+
+install(DIRECTORY ${PROJECT_SOURCE_DIR}/xtdb/include DESTINATION ${CMAKE_INSTALL_PREFIX})
+install(EXPORT xtdbTargets
+        FILE xtdbConfig.cmake #after adding this line, xtdbTargets.cmake is not installed. And a xtdbConfig.cmake is generated. Do I need to write xtdbConfig.cmake manually?
+        DESTINATION lib) #after adding this line, xtdb.cmake and xtdb-debug.cmake will be generated, and cmake --install . will install them
