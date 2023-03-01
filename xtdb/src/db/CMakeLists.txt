@@ -46,11 +46,6 @@ target_include_directories(xtdb PUBLIC
   $<BUILD_INTERFACE:${PROJECT_SOURCE_DIR}/xtdb/include>
   $<INSTALL_INTERFACE:include>
 )
-target_include_directories(
-        xtdb
-        PRIVATE
-        ${PROJECT_SOURCE_DIR}/xtdb/include
-)
 install(TARGETS xtdb EXPORT xtdbTargets
         ARCHIVE DESTINATION lib)
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/xtdb/include DESTINATION ${CMAKE_INSTALL_PREFIX})
