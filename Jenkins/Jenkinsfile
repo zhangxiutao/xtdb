@@ -5,6 +5,7 @@ pipeline {
       steps {
         // Print "Hello World"
         echo 'Hello World'
+        echo 'This is added'
       }
     }
   }
