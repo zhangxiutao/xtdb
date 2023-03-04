@@ -8,6 +8,14 @@ pipeline {
         echo 'This is added'
       }
     }
+    stage('Build') {
+      steps {
+        mkdir 'build'
+        cd build
+        cmake ..
+        make
+      }
+    }
   }
 }
 
