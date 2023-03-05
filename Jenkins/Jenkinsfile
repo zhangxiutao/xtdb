@@ -4,7 +4,7 @@ pipeline {
     stage('Hello') {
       steps {
         // Print "Hello World"
-        echo 'Hello World in PR'
+        echo 'Hello World'
         echo 'This is added'
       }
     }
@@ -12,7 +12,8 @@ pipeline {
       steps {
         // Clean before build
         cleanWs()
-        sh 'cmake -Bbuild -H.'
+        makedir build
+        #sh 'cmake -Bbuild -H.'
         sh 'cmake --build build'
         sh 'cd build'
         sh 'make'
@@ -20,3 +21,4 @@ pipeline {
     }
   }
 }
+
