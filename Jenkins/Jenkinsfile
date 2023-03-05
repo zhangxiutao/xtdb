@@ -13,7 +13,6 @@ pipeline {
         // Clean before build
         cleanWs()
         makedir build
-        #sh 'cmake -Bbuild -H.'
         sh 'cmake --build build'
         sh 'cd build'
         sh 'make'
