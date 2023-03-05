@@ -10,7 +10,7 @@ class XtObjectPage;
 class _XtFreeObject;
 class _XtObject;
 template <typename T>
-class XtTable : public XtObjectTable, public XtContainer
+class XtTable : public XtContainer, public XtObjectTable
 {
 public:
     XtTablePage **mPages;
@@ -25,10 +25,11 @@ public:
     uint mAllocCnt;
 public:
     XtTable(_XtObject* pOwner = nullptr, uint pPageSize = 128);
+    ~XtTable();
     void reallocPages();
     _XtObject* getPtr(uint pExtId) const override;
     void newPage();
-    T *create();
+    T* create();
     void destroy(T* t);
     _XtFreeObject* popFreeList();
     void pushFreeList(_XtFreeObject* pFreeObj);

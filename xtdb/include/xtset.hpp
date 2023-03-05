@@ -7,6 +7,7 @@ template <typename T>
 XtIterator<T> XtSet<T>::begin()
 {
     XtContainer* xtcontainer = (XtContainer*)mContainer;
+    int x = xtcontainer->begin();
     return XtIterator<T>(xtcontainer, xtcontainer->begin());
 }
 

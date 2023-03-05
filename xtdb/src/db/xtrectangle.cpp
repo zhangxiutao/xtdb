@@ -6,13 +6,13 @@
 namespace xtdb {
 
 _XtRectangle::_XtRectangle():
-    mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
+    mX1(0), mY1(0), mX2(0), mY2(0), mNext(0), mName(""), _XtShape(_XtTech::METAL1)
 {
 
 }
 
 _XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type pLayer):
-    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), _XtShape(pLayer)
+    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), mNext(0), mName(""), _XtShape(pLayer)
 {
 
 }
