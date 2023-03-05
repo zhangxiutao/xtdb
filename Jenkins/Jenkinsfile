@@ -4,7 +4,7 @@ pipeline {
     stage('Hello') {
       steps {
         // Print "Hello World"
-        echo 'Hello World'
+        echo 'Hello World in PR'
         echo 'This is added'
       }
     }
@@ -18,4 +18,3 @@ pipeline {
     }
   }
 }
-

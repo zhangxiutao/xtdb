@@ -2,7 +2,6 @@ add_library(
 	xtdb
         STATIC
         xttablepage.cpp
-        xtobjecttable.cpp
         xtobjectpage.cpp
         xtshape.cpp
         xttech.cpp
@@ -13,10 +12,11 @@ add_library(
         xtshape.cpp
 )
 add_custom_target(headers_xtdb SOURCES
-    xtobjecttable.h
+    xthashtable.h
     _xtblock.h
     xttable.h
     xttable.hpp
+    xthashtable.hpp
     xtcore.h
     xttablepage.h
     xtobjectpage.h

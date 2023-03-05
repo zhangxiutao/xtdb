@@ -18,6 +18,12 @@ XtTable<T>::XtTable(_XtObject* pOwner, uint pPageSize):
 }
 
 template <typename T>
+XtTable<T>::~XtTable()
+{
+    //TODO:
+}
+
+template <typename T>
 void XtTable<T>::newPage()
 {
     if (mPagesCap == mPagesCnt) {
