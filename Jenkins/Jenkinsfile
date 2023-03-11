@@ -11,7 +11,7 @@ pipeline {
     stage('build') {
       steps {
         cmake 
-            buildDir: 'build', 
+            buildDir: './build', 
             sourceDir: '.'
 //         cmakeBuild buildDir: 'build', cleanBuild: true
       }
