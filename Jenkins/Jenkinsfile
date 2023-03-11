@@ -1,23 +1,18 @@
+
 pipeline {
   agent any
   stages {
     stage('Hello') {
       steps {
         // Print "Hello World"
-        echo 'Hello World'
-        echo 'This is added'
+        echo 'Hello World in PR'
       }
     }
-    stage('Build') {
+    stage('build') {
       steps {
-        // Clean before build
-        cleanWs()
-        makedir build
-        sh 'cmake --build build'
-        sh 'cd build'
-        sh 'make'
+        cmake buildDir: 'build', cmakeArgs: '', sourceDir: '.'
+        cmakeBuild buildDir: 'build', cleanBuild: true, makeProgram: '', targets: '', verbose: false
       }
     }
   }
 }
-
