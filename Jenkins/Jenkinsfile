@@ -10,9 +10,8 @@ pipeline {
     }
     stage('build') {
       steps {
-        cmake 
-            buildDir: './build', 
-            sourceDir: '.'
+        cmake buildDir: './build'
+//         , sourceDir: '.'
 //         cmakeBuild buildDir: 'build', cleanBuild: true
       }
     }
