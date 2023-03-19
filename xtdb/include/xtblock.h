@@ -8,6 +8,7 @@ class XtBlock
 public:
     XtSet<XtShape> getAllShapes();
     static XtBlock* create();
+    void searchShapes();
     void load(const char* pFileNm);
     void write(const char* pFileNm);
     bool operator==(const XtBlock& pRhs) const;

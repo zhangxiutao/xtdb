@@ -26,7 +26,8 @@ XtTable<T>::~XtTable()
 template <typename T>
 void XtTable<T>::newPage()
 {
-    if (mPagesCap == mPagesCnt) {
+    if (mPagesCap == mPagesCnt)
+    {
         reallocPages();
     }
     XtTablePage *page = (XtTablePage*)malloc(sizeof(XtObjectPage) + mPageSize*sizeof(T));
@@ -41,13 +42,15 @@ void XtTable<T>::newPage()
     ((_XtObject*)last)->mIntId = mPageMask*sizeof(T);
     mFreeList = ((_XtObject*)last)->getExtId();
 
-    for(int i = mPageMask - 1; i >= 0 ; i--) {
+    for(int i = mPageMask - 1; i >= 0 ; i--)
+    {
         uint offsetBits = i*sizeof(T);
         char* cur = page->mObjects + offsetBits;
         ((_XtObject*)cur)->mIntId = offsetBits;
         pushFreeList((_XtFreeObject*)cur);
     }
-    if (0 == mPagesCnt) {
+    if (0 == mPagesCnt)
+    {
         popFreeList();
         //id 0 is reserved for expressing "there is no next object" in next(), therefore pop id 0;
         mBottomId = 1;
@@ -58,13 +61,17 @@ void XtTable<T>::newPage()
 template <typename T>
 void XtTable<T>::reallocPages()
 {
-    if (0 == mPagesCap) {
+    if (0 == mPagesCap)
+    {
         mPagesCap = 1;
-    } else {
+    }
+    else
+    {
         mPagesCap *= 2;
     }
     XtTablePage **tmp = new XtTablePage*[mPagesCap];
-    for (uint i = 0; i < mPagesCnt; i++) {
+    for (uint i = 0; i < mPagesCnt; i++)
+    {
         tmp[i] = mPages[i];
     }
     delete[] mPages;
@@ -74,7 +81,8 @@ void XtTable<T>::reallocPages()
 template <typename T>
 T* XtTable<T>::create()
 {
-    if (0 == mFreeList) {
+    if (0 == mFreeList)
+    {
         newPage();
     }
     T* objAddr = (T*)popFreeList();
@@ -82,7 +90,8 @@ T* XtTable<T>::create()
     objAddr->mIntId |= XT_INTID_ALLOC_BIT;
     objAddr->getPageHeader()->mAllocCnt++;
     uint extId = objAddr->getExtId();
-    if (extId < mBottomId) {
+    if (extId < mBottomId)
+    {
         mBottomId = extId;
     }
     mAllocCnt++;
@@ -114,7 +123,8 @@ template <typename T>
 void XtTable<T>::destroy(T* pObj)
 {
     uint extId = pObj->getExtId();
-    if (mBottomId == extId) {
+    if (mBottomId == extId)
+    {
         mBottomId = next(mBottomId);
     }
     pObj->~T();
@@ -141,31 +151,41 @@ uint XtTable<T>::next(uint pExtId) const
     //search for the next T in the page of initial pExtId
     uint initPageIdx = pExtId >> mPageShift;
     pExtId++;
-    while (true) {
-        if (initPageIdx != pExtId >> mPageShift) {
+    while (true)
+    {
+        if (initPageIdx != pExtId >> mPageShift)
+        {
             break;
         }
-        if (isAllocated(pExtId)) {
+        if (isAllocated(pExtId))
+        {
             return pExtId;
         }
         pExtId++;
     }
     //search for the next non-empty page
-    while (true) {
-        if ((pExtId >> mPageShift) >= mPagesCnt) {
+    while (true)
+    {
+        if ((pExtId >> mPageShift) >= mPagesCnt)
+        {
             //there is no next T
             return 0;
         }
-        if (getPageHeader(pExtId)->isEmpty()) {
+        if (getPageHeader(pExtId)->isEmpty())
+        {
             //jump to the first id of next page
             pExtId = (pExtId + mPageSize) & ~mPageMask;
-        } else {
+        }
+        else
+        {
             break;
         }
     }
     //search the for first T in the non-empty page
-    while (true) {
-        if (isAllocated(pExtId)) {
+    while (true)
+    {
+        if (isAllocated(pExtId))
+        {
             return pExtId;
         }
         pExtId++;
@@ -184,7 +204,8 @@ bool XtTable<T>::operator==(const XtTable& pRhs) const
         || mPageMask != pRhs.mPageMask
         || mPageShift != pRhs.mPageShift
         || mTopId != pRhs.mTopId
-        || mBottomId != pRhs.mBottomId) {
+        || mBottomId != pRhs.mBottomId)
+    {
         return false;
     }
     for (uint pageIdx = mPagesCnt; pageIdx < mPagesCnt; pageIdx++)
@@ -198,7 +219,8 @@ bool XtTable<T>::operator==(const XtTable& pRhs) const
         T* rhsEndObj = rhsObj + pRhs.mPageSize;
         while (obj != endObj)
         {
-            if (*obj != *rhsObj) {
+            if (*obj != *rhsObj)
+            {
                 return false;
             }
             obj++;
@@ -225,11 +247,14 @@ XtOStream& operator<<(XtOStream& pOS, XtTable<T>& pTable)
         {
             char allocated;
             uint id = pageIdx << pTable.mPageShift | idxInPage;
-            if (pTable.isAllocated(id)) {
+            if (pTable.isAllocated(id))
+            {
                 allocated = 1;
                 pOS << allocated;
                 pOS << *(T*)(pTable.getPtr(id));
-            } else {
+            }
+            else
+            {
                 allocated = 0;
                 pOS << allocated;
                 pOS << *(_XtFreeObject*)(pTable.getPtr(id));
@@ -264,11 +289,14 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
         {
             char allocated;
             pIS >> allocated;
-            if (allocated) {
+            if (allocated)
+            {
                 page->mAllocCnt++;
                 obj->mIntId = ((char*)obj - pTable.mPages[pageIdx]->mObjects) | XT_INTID_ALLOC_BIT;
                 pIS >> *obj;
-            } else {
+            }
+            else
+            {
                 obj->mIntId = (char*)obj - pTable.mPages[pageIdx]->mObjects;
                 _XtFreeObject* freeObj = (_XtFreeObject*)obj;
                 pIS >> *(freeObj);

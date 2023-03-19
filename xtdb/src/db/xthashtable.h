@@ -10,6 +10,8 @@ private:
     XtTable<T>* mTbl;
     uint mObjCnt;
     uint mCapacity;
+    uint mHeadDoubleLL;
+    uint mItr;
 public:
     XtHashTable(XtTable<T>* pTbl);
     ~XtHashTable();
@@ -18,6 +20,8 @@ public:
     T* find(const char* pName);
     void remove(const char* pName);
     void growTable();
+    void initItr();
+    T* next();
 };
 }
 

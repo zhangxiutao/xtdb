@@ -8,7 +8,7 @@ namespace fs = std::filesystem;
 using namespace std;
 using namespace xtdb;
 
-TEST_CASE("xthashtable", "[xthashtable tests]")
+TEST_CASE("xthashtable", "[insert, remove, find, iteration]")
 {
     SECTION("Default Settings")
     {
@@ -31,6 +31,18 @@ TEST_CASE("xthashtable", "[xthashtable tests]")
         _XtRectangle* rect2_found_after_remove = hashtbl.find("rect2");
         REQUIRE(!rect2_found_after_remove);
 
+        _XtRectangle* rect3 = xtb.create();
+        rect3->mName = "rect3";
+        hashtbl.insert(rect3);
+        _XtRectangle* rect3_found = hashtbl.find("rect3");
+        REQUIRE(string("rect3") == string(rect3_found->mName));
+
+        hashtbl.initItr();
+        _XtRectangle* rect;
+        while ((rect = hashtbl.next()))
+        {
+            cout << rect->mName << endl;
+        }
         //TODO: rename test
     }
 }
