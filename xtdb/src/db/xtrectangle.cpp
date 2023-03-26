@@ -6,13 +6,13 @@
 namespace xtdb {
 
 _XtRectangle::_XtRectangle():
-    mX1(0), mY1(0), mX2(0), mY2(0), mNext(0), mName(""), _XtShape(_XtTech::METAL1)
+    mX1(0), mY1(0), mX2(0), mY2(0), mNext(0), mName(""), _XtShape(_XtTech::METAL1), mDoubleLLPrev(0), mDoubleLLNext(0)
 {
 
 }
 
 _XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type pLayer):
-    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), mNext(0), mName(""), _XtShape(pLayer)
+    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), mNext(0), mName(""), _XtShape(pLayer), mDoubleLLPrev(0), mDoubleLLNext(0)
 {
 
 }
@@ -22,7 +22,8 @@ bool _XtRectangle::operator==(const _XtRectangle& pRhs)
     if (mX1 != pRhs.mX1
         || mY1 != pRhs.mY1
         || mX2 != pRhs.mX2
-        || mY2 != pRhs.mY2) {
+        || mY2 != pRhs.mY2)
+    {
         return false;
     }
     return true;
@@ -33,9 +34,22 @@ bool _XtRectangle::operator!=(const _XtRectangle& pRhs)
     return !(*this == pRhs);
 }
 
+XtRect _XtRectangle::getZone()
+{
+    return XtRect(mX1, mY1, mX2, mY2);
+}
+
+XtRect XtRectangle::getZone()
+{
+    _XtRectangle* rect = (_XtRectangle*)this;
+    return rect->getZone();
+}
+
 XtRectangle* XtRectangle::create(XtBlock* pBlock)
 {
-    _XtRectangle* rect = ((_XtBlock*)pBlock)->mRectTbl->create();
+    _XtBlock* block = (_XtBlock*)pBlock;
+    _XtRectangle* rect = block->mRectTbl->create();
+    block->mQuadtree.insert(rect);
     return (XtRectangle*)rect;
 }
 
@@ -72,24 +86,28 @@ void XtRectangle::setX1(int pX1)
 {
     _XtRectangle* rect = (_XtRectangle*)this;
     rect->mX1 = pX1;
+    rect->mW = rect->mX2 - rect->mX1;
 }
 
 void XtRectangle::setY1(int pY1)
 {
     _XtRectangle* rect = (_XtRectangle*)this;
     rect->mY1 = pY1;
+    rect->mH = rect->mY2 - rect->mY1;
 }
 
 void XtRectangle::setX2(int pX2)
 {
     _XtRectangle* rect = (_XtRectangle*)this;
     rect->mX2 = pX2;
+    rect->mW = rect->mX2 - rect->mX1;
 }
 
 void XtRectangle::setY2(int pY2)
 {
     _XtRectangle* rect = (_XtRectangle*)this;
     rect->mY2 = pY2;
+    rect->mH = rect->mY2 - rect->mY1;
 }
 
 void XtRectangle::destroy()
@@ -117,21 +135,4 @@ XtIStream& operator>>(XtIStream& pIS, _XtRectangle& pRect)
     return pIS;
 }
 
-//void XtRectangle::draw(QPainter *pPainter)
-//{
-//    QPen pen;
-//    pen.setBrush(QBrush(QColor(0,255,0,255)));
-//    pPainter->setPen(pen);
-
-//    QBrush brush;
-//    if(mSelected)
-//    {
-//        pPainter->setBrush(QColor(255,255,255,255));
-//    }
-//    else
-//    {
-//        pPainter->setBrush(GlobalSetting::textureOfLayer.value(mLayer));
-//    }
-//    pPainter->drawRect(mRect);
-//}
 }

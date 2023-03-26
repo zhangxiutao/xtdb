@@ -18,9 +18,12 @@ XtObjectPage* _XtObject::getPageHeader() const
 }
 bool _XtObject::isAllocated() const
 {
-    if (mIntId & XT_INTID_ALLOC_BIT) {
+    if (mIntId & XT_INTID_ALLOC_BIT)
+    {
         return true;
-    } else {
+    }
+    else
+    {
         return false;
     }
 }

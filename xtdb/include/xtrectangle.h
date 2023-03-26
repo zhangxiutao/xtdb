@@ -1,6 +1,8 @@
 #ifndef XTRECTANGLE_H
 #define XTRECTANGLE_H
 #include "xtshape.h"
+#include "xtrect.h"
+
 namespace xtdb {
 class XtBlock;
 class XtRectangle: public XtShape
@@ -9,6 +11,7 @@ public:
     static XtRectangle* create(XtBlock* pBlock);
     void destroy();
     void setCoodinates(int pX1, int pY1, int pX2, int pY2);
+    XtRect getZone();
     int getX1();
     int getY1();
     int getX2();

@@ -2,6 +2,7 @@
 #define XTITERATOR_HPP
 #include "xtiterator.h"
 #include "xtcontainer.h"
+//TODO: merge hpp and h, since user is not used to include .hpp
 namespace xtdb {
 template <typename T>
 XtIterator<T>::XtIterator(void* pContainer, uint pId):

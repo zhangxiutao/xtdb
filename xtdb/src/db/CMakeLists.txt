@@ -10,6 +10,8 @@ add_library(
         xtblock.cpp
         xtcore.cpp
         xtshape.cpp
+        xtquery.cpp
+        xtshapequery.cpp
 )
 add_custom_target(headers_xtdb SOURCES
     xthashtable.h
@@ -23,6 +25,10 @@ add_custom_target(headers_xtdb SOURCES
     _xtshape.h
     _xttech.h
     _xtrectangle.h
+    xtquadtree.hpp
+    xtquery.h
+    xtshapequery.h
+    xtrect.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtset.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtrectangle.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtsize.h
