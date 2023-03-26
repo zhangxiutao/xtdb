@@ -1,6 +1,8 @@
 #ifndef _XTRECTANGLE_H
 #define _XTRECTANGLE_H
 #include "_xtshape.h"
+#include "xtrect.h"
+
 namespace xtdb {
 class _XtBlock;
 class _XtRectangle: public _XtShape
@@ -19,6 +21,7 @@ public:
 public:
     _XtRectangle();
     _XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type layer);
+    XtRect getZone();
     bool operator==(const _XtRectangle& pRhs);
     bool operator!=(const _XtRectangle& pRhs);
 };

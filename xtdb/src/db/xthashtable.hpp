@@ -6,13 +6,16 @@ template <typename T>
 XtHashTable<T>::XtHashTable(XtTable<T>* pTbl):mData(nullptr), mTbl(pTbl), mObjCnt(1), mCapacity(0), mHeadDoubleLL(0), mItr(0)
 {
 }
+
 template <typename T>
 XtHashTable<T>::~XtHashTable()
 {
+    clear();
     delete [] mData;
 }
+
 template <typename T>
-uint XtHashTable<T>::hashString(const char* str)
+uint XtHashTable<T>::hashString(const char* str) //TODO: either deal with empty name or ensure inserted obj always has a name
 {
     uint hash = 0;
     while (uint ch = (uint)*str++)
@@ -21,6 +24,7 @@ uint XtHashTable<T>::hashString(const char* str)
     }
     return hash%mCapacity;
 }
+
 template <typename T>
 void XtHashTable<T>::insert(T* pObj)
 {
@@ -54,6 +58,7 @@ void XtHashTable<T>::insert(T* pObj)
     mObjCnt++;
     return;
 }
+
 template <typename T>
 void XtHashTable<T>::growTable()
 {
@@ -81,6 +86,7 @@ void XtHashTable<T>::growTable()
     delete [] origData;
     return;
 }
+
 template <typename T>
 T* XtHashTable<T>::find(const char* pName)
 {
@@ -99,6 +105,7 @@ T* XtHashTable<T>::find(const char* pName)
     }
     return nullptr;
 }
+
 template <typename T>
 void XtHashTable<T>::remove(const char* pName)
 {
@@ -159,12 +166,14 @@ void XtHashTable<T>::remove(const char* pName)
     mObjCnt--;
     return;
 }
+
 template <typename T>
 void XtHashTable<T>::initItr()
 {
     mItr = mHeadDoubleLL;
     return;
 }
+
 template <typename T>
 T* XtHashTable<T>::next()
 {
@@ -177,5 +186,21 @@ T* XtHashTable<T>::next()
     return curObj;
 }
 
+template <typename T>
+void XtHashTable<T>::clear()
+{
+    initItr();
+    T* obj;
+    while ((obj = next()))
+    {
+        obj->mNext = 0;
+        obj->mDoubleLLPrev = 0;
+        obj->mDoubleLLNext = 0;
+    }
+    for (uint i = 0; i < mCapacity; i++)
+    {
+        mData[i] = 0;
+    }
+}
 }
 #endif // XTHASHTABLE_HPP

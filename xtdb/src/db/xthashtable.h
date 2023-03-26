@@ -19,6 +19,7 @@ public:
     void insert(T* pObj);
     T* find(const char* pName);
     void remove(const char* pName);
+    void clear();
     void growTable();
     void initItr();
     T* next();
