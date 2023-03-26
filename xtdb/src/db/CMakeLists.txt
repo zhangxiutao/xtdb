@@ -17,18 +17,14 @@ add_custom_target(headers_xtdb SOURCES
     xthashtable.h
     _xtblock.h
     xttable.h
-    xttable.hpp
-    xthashtable.hpp
     xtcore.h
     xttablepage.h
     xtobjectpage.h
     _xtshape.h
     _xttech.h
     _xtrectangle.h
-    xtquadtree.hpp
-    xtquery.h
-    xtshapequery.h
-    xtrect.h
+    xtquadtree.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtrect.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtset.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtrectangle.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtsize.h
@@ -37,10 +33,10 @@ add_custom_target(headers_xtdb SOURCES
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtblock.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtshape.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtdb.h
-    ${PROJECT_SOURCE_DIR}/xtdb/include/xtiterator.hpp
-    ${PROJECT_SOURCE_DIR}/xtdb/include/xtset.hpp
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtcontainer.h
     ${PROJECT_SOURCE_DIR}/xtdb/include/xtobject.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtquery.h
+    ${PROJECT_SOURCE_DIR}/xtdb/include/xtshapequery.h
 )
 target_include_directories(
         xtdb

@@ -1,5 +1,5 @@
-#ifndef XTXtQuadtree_H
-#define XTXtQuadtree_H
+#ifndef XTQUADTREE_H
+#define XTQUADTREE_H
 #include <memory>
 #include "xtrect.h"
 #include <unordered_set>
@@ -79,7 +79,7 @@ void XtQuadtreeNode<T>::removeObjsIn(const XtRect& pZone)
 template <typename T>
 void XtQuadtreeNode<T>::removeObj(const T& pObj)
 {
-    mObjs.erase(pObj.mName);
+    mObjs.erase(pObj);
 }
 
 template <typename T>
@@ -124,7 +124,7 @@ void XtQuadtreeNode<T>::insert(const T& pObj)
     if(mLevel == maxLevel)
     {
         mObjs.insert(pObj);
-//        pObj->setOwnerNode(this); //TODO: owner block instead of owner XtQuadtreeNode.
+        pObj->mOwnerNode = this;
         return;
     }
     for (int i = 0; i < 4; i++)
@@ -140,7 +140,7 @@ void XtQuadtreeNode<T>::insert(const T& pObj)
         }
     }
     mObjs.insert(pObj);
-//    pObj->setOwnerNode(this);
+    pObj->mOwnerNode = this;
     return;
 }
 
@@ -239,4 +239,4 @@ void XtQuadtree<T>::clear(XtQuadtreeNode<T>* pNode)
     }
 }
 }
-#endif // XTXtQuadtree_H
+#endif // XTQUADTREE_H

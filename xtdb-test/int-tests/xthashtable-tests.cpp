@@ -3,7 +3,7 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
-#include "xthashtable.hpp"
+#include "xthashtable.h"
 namespace fs = std::filesystem;
 using namespace std;
 using namespace xtdb;

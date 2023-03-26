@@ -16,6 +16,7 @@ XtObjectPage* _XtObject::getPageHeader() const
     XtObjectPage* pageHeader = (XtObjectPage*)((char*)this - offsetBits - sizeof(XtObjectPage));
     return pageHeader;
 }
+
 bool _XtObject::isAllocated() const
 {
     if (mIntId & XT_INTID_ALLOC_BIT)

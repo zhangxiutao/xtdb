@@ -1,6 +1,6 @@
 #include "_xtrectangle.h"
-#include "xttable.hpp"
-#include "xtquadtree.hpp"
+#include "xttable.h"
+#include "xtquadtree.h"
 #include <unordered_set>
 #include "catch.hpp"
 #include <iostream>

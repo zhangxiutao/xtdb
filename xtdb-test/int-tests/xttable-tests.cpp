@@ -1,5 +1,5 @@
 #include "_xtrectangle.h"
-#include "xttable.hpp"
+#include "xttable.h"
 #include "catch.hpp"
 #include <iostream>
 #include <string>

@@ -7,6 +7,7 @@ class XtObject
 {
 private:
     uint mId;
+
 public:
     XtObject();
     uint getId() const;

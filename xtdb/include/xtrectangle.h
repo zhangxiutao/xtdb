@@ -7,6 +7,8 @@ namespace xtdb {
 class XtBlock;
 class XtRectangle: public XtShape
 {
+private:
+    ~XtRectangle() = delete;
 public:
     static XtRectangle* create(XtBlock* pBlock);
     void destroy();

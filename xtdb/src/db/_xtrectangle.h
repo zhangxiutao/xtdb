@@ -2,6 +2,7 @@
 #define _XTRECTANGLE_H
 #include "_xtshape.h"
 #include "xtrect.h"
+#include "xtquadtree.h"
 
 namespace xtdb {
 class _XtBlock;
@@ -18,10 +19,12 @@ public:
     const char* mName;
     int mDoubleLLPrev; //support double linked list of xthashtable
     int mDoubleLLNext;
+    XtQuadtreeNode<_XtRectangle*>* mOwnerNode;
 public:
     _XtRectangle();
     _XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type layer);
     XtRect getZone();
+    XtQuadtreeNode<_XtRectangle*>* getOwnerNode();
     bool operator==(const _XtRectangle& pRhs);
     bool operator!=(const _XtRectangle& pRhs);
 };

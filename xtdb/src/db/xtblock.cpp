@@ -1,20 +1,22 @@
 #include "xtblock.h"
 #include "_xtblock.h"
 #include "_xtrectangle.h"
-#include "xttable.hpp"
+#include "xttable.h"
 #include "xtstream.h"
 #include <fstream>
 namespace xtdb {
+static XtTable<_XtBlock>* blockTbl = nullptr;
 
-_XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>(this))
+_XtBlock::_XtBlock():mRectTbl(new XtTable<_XtRectangle>(this)), mQuadtree(new XtQuadtree<_XtRectangle*>())
 {
 
 }
 
-//_XtBlock::~_XtBlock()
-//{
-//TODO: delete mRectTbl
-//}
+_XtBlock::~_XtBlock()
+{
+    delete mRectTbl;
+    delete mQuadtree;
+}
 
 bool _XtBlock::operator==(const _XtBlock& pRhs) const
 {
@@ -41,14 +43,14 @@ XtIStream& operator>>(XtIStream& pIS, _XtBlock& pBlock)
 
 void XtBlock::load(const char* pFileNm)
 {
-    _XtBlock* block = (_XtBlock*)this;
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
     XtIStream is(pFileNm);
     is >> *block;
 }
 
 void XtBlock::write(const char* pFileNm)
 {
-    _XtBlock* block = (_XtBlock*)this;
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
 
     std::ofstream file(pFileNm, std::ios::out | std::ios::trunc);
     file.close();
@@ -63,8 +65,17 @@ bool XtBlock::operator==(const XtBlock& pRhs) const
 
 XtBlock* XtBlock::create()
 {
-    //TODO: create in blockTbl
-    return (XtBlock*)(new _XtBlock);
+    if (!blockTbl)
+    {
+        blockTbl = new XtTable<_XtBlock>();
+    }
+    XtBlock* block = reinterpret_cast<XtBlock*>(blockTbl->create());
+    return block;
 }
 
+void XtBlock::destroy(XtBlock* pBlock)
+{
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(pBlock);
+    blockTbl->destroy(block);
+}
 }

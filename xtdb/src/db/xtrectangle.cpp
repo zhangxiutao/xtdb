@@ -1,5 +1,6 @@
 #include "_xtrectangle.h"
 #include "xtrectangle.h"
+#include "xtquadtree.h"
 #include "_xtblock.h"
 #include "_xttech.h"
 #include "xtstream.h"
@@ -41,21 +42,21 @@ XtRect _XtRectangle::getZone()
 
 XtRect XtRectangle::getZone()
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     return rect->getZone();
 }
 
 XtRectangle* XtRectangle::create(XtBlock* pBlock)
 {
-    _XtBlock* block = (_XtBlock*)pBlock;
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(pBlock);
     _XtRectangle* rect = block->mRectTbl->create();
-    block->mQuadtree.insert(rect);
-    return (XtRectangle*)rect;
+    block->mQuadtree->insert(rect);
+    return reinterpret_cast<XtRectangle*>(rect);
 }
 
 void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mX1 = pX1;
     rect->mX2 = pX2;
     rect->mY1 = pY1;
@@ -64,57 +65,58 @@ void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
 
 int XtRectangle::getX1()
 {
-    return ((_XtRectangle*)this)->mX1;
+    return reinterpret_cast<_XtRectangle*>(this)->mX1;
 }
 
 int XtRectangle::getY1()
 {
-    return ((_XtRectangle*)this)->mY1;
+    return reinterpret_cast<_XtRectangle*>(this)->mY1;
 }
 
 int XtRectangle::getX2()
 {
-    return ((_XtRectangle*)this)->mX2;
+    return reinterpret_cast<_XtRectangle*>(this)->mX2;
 }
 
 int XtRectangle::getY2()
 {
-    return ((_XtRectangle*)this)->mY2;
+    return reinterpret_cast<_XtRectangle*>(this)->mY2;
 }
 
 void XtRectangle::setX1(int pX1)
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mX1 = pX1;
     rect->mW = rect->mX2 - rect->mX1;
 }
 
 void XtRectangle::setY1(int pY1)
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mY1 = pY1;
     rect->mH = rect->mY2 - rect->mY1;
 }
 
 void XtRectangle::setX2(int pX2)
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mX2 = pX2;
     rect->mW = rect->mX2 - rect->mX1;
 }
 
 void XtRectangle::setY2(int pY2)
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mY2 = pY2;
     rect->mH = rect->mY2 - rect->mY1;
 }
 
 void XtRectangle::destroy()
 {
-    _XtRectangle* rect = (_XtRectangle*)this;
-    _XtBlock* block = (_XtBlock*)rect->getOwner();
+    _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
     block->mRectTbl->destroy(rect);
+    rect->mOwnerNode->removeObj(rect);
 }
 
 XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)

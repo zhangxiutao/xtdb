@@ -9,7 +9,7 @@ _XtShape::_XtShape(_XtTech::layer_type pLayer):mSelected(false), mLayer(_XtTech:
 
 void XtShape::setSelected(bool pSelected)
 {
-    _XtShape* shape = (_XtShape*)this;
+    _XtShape* shape = reinterpret_cast<_XtShape*>(this);
     shape->mSelected = pSelected;
 }
 
