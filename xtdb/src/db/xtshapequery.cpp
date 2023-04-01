@@ -15,7 +15,7 @@ void XtShapeQuery::query(const XtRect& pRegion)
     block->mQuadtree->search(pRegion, foundShapes);
     for (auto& shape : foundShapes)
     {
-        OnShapeFound(reinterpret_cast<XtRectangle*>(shape));
+        onShapeFound(reinterpret_cast<XtRectangle*>(shape));
     }
 }
 

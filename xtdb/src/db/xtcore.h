@@ -3,6 +3,7 @@
 #include "xttypes.h"
 #include "xtobjectpage.h"
 #include "xtstream.h"
+#include <unordered_map>
 
 namespace xtdb {
 
@@ -10,13 +11,17 @@ class _XtObject
 {
 public:
     uint mIntId;
+    std::unordered_map<uint, void*> mExtendedObjMap;
 public:
-    _XtObject(){};
+    void* getExtendedObj(uint pExtendedClassId) const;
+    void setExtendedObj(uint pExtendedClassId, void* pExtendedObj);
     uint getExtId() const;
     XtObjectPage* getPageHeader() const;
     XtObjectTable* getTable() const;
     bool isAllocated() const;
     _XtObject* getOwner() const;
+    _XtObject(){};
+    ~_XtObject(){};
 };
 
 class _XtFreeObject : public _XtObject

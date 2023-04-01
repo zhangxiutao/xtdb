@@ -39,20 +39,39 @@ _XtObject* _XtObject::getOwner() const
     return getTable()->mOwner;
 }
 
+void* _XtObject::getExtendedObj(uint pExtendedClassId) const
+{
+    return mExtendedObjMap.at(pExtendedClassId);
+}
+
+void _XtObject::setExtendedObj(uint pExtendedClassId, void* pExtendedObj)
+{
+    mExtendedObjMap[pExtendedClassId] = pExtendedObj;
+}
+
 XtObject::XtObject()
 {
 
 }
 
+void XtObject::setExtendedObj(uint pExtendedClassId, void* pExtendedObj)
+{
+    reinterpret_cast<_XtObject*>(this)->setExtendedObj(pExtendedClassId, pExtendedObj);
+}
+
+void* XtObject::getExtendedObj(uint pExtendedClassId) const
+{
+    return reinterpret_cast<const _XtObject*>(this)->getExtendedObj(pExtendedClassId);
+}
+
 uint XtObject::getId() const
 {
-    return ((_XtObject*)this)->getExtId();
+    return reinterpret_cast<const _XtObject*>(this)->getExtId();
 }
 
 bool XtObject::isAlive() const
 {
-    _XtObject* obj = (_XtObject*)this;
-    return obj->isAllocated();
+    return reinterpret_cast<const _XtObject*>(this)->isAllocated();
 }
 
 XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj)

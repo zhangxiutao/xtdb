@@ -12,12 +12,6 @@ _XtRectangle::_XtRectangle():
 
 }
 
-_XtRectangle::_XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type pLayer):
-    mX1(pX1), mY1(pY1), mX2(pX1 + pW), mY2(pY1 + pH), mNext(0), mName(""), _XtShape(pLayer), mDoubleLLPrev(0), mDoubleLLNext(0)
-{
-
-}
-
 bool _XtRectangle::operator==(const _XtRectangle& pRhs)
 {
     if (mX1 != pRhs.mX1

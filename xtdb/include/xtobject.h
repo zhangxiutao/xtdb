@@ -7,11 +7,12 @@ class XtObject
 {
 private:
     uint mId;
-
 public:
     XtObject();
     uint getId() const;
     bool isAlive() const;
+    void* getExtendedObj(uint pExtendedClassId) const;
+    void setExtendedObj(uint pExtendedClassId, void* pExtendedObj);
 };
 }
 

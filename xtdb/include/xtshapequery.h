@@ -9,7 +9,7 @@ class XtShapeQuery : public XtQuery
 public:
     XtShapeQuery(XtBlock* pBlock);
     void query(const XtRect& pRegion) override;
-    virtual void OnShapeFound(XtShape* pShape) = 0;
+    virtual void onShapeFound(XtShape* pShape) = 0;
 };
 
 }

@@ -22,7 +22,7 @@ public:
     XtQuadtreeNode<_XtRectangle*>* mOwnerNode;
 public:
     _XtRectangle();
-    _XtRectangle(int pX1, int pY1, int pW, int pH, _XtTech::layer_type layer);
+    ~_XtRectangle(){};
     XtRect getZone();
     XtQuadtreeNode<_XtRectangle*>* getOwnerNode();
     bool operator==(const _XtRectangle& pRhs);

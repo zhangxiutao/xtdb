@@ -78,7 +78,8 @@ void XtTable<T>::clear()
     //call destructor of objs
     while (i != end())
     {
-        reinterpret_cast<T*>(getPtr(i))->~T();
+        T* obj = reinterpret_cast<T*>(getPtr(i));
+        obj->~T();
         i = next(i);
     }
     //free pages
@@ -286,23 +287,54 @@ bool XtTable<T>::operator==(const XtTable& pRhs) const
     {
         return false;
     }
-    for (uint pageIdx = mPagesCnt; pageIdx < mPagesCnt; pageIdx++)
+//    for (uint pageIdx = 0; pageIdx < mPagesCnt; pageIdx++)
+//    {
+//        XtTablePage* page = mPages[pageIdx];
+//        T* obj = (T*)(page->mObjects);
+//        T* endObj = obj + mPageSize;
+//        T t1 = *obj;
+//        XtTablePage* rhsPage = pRhs.mPages[pageIdx];
+//        T* rhsObj = (T*)(rhsPage->mObjects);
+//        T t2 = *rhsObj;
+//        while (obj != endObj)
+//        {
+//            if (*obj != *rhsObj)
+//            {
+//                return false;
+//            }
+//            obj++;
+//        }
+//    }
+    uint id = begin();
+    uint idRhs = pRhs.begin();
+    while (id != end())
     {
-        XtTablePage* page = mPages[pageIdx];
-        T* obj = (T*)(page->mObjects);
-        T* endObj = obj + mPageSize;
-
-        XtTablePage* rhsPage = pRhs.mPages[pageIdx];
-        T* rhsObj = (T*)(rhsPage->mObjects);
-        T* rhsEndObj = rhsObj + pRhs.mPageSize;
-        while (obj != endObj)
+        if (id != idRhs)
         {
-            if (*obj != *rhsObj)
+            return false;
+        }
+        T* obj = (T*)getPtr(id);
+        T* objRhs = (T*)pRhs.getPtr(idRhs);
+        if (!obj->isAllocated() && !objRhs->isAllocated())
+        {
+            id = next(id);
+            idRhs = next(idRhs);
+            continue;
+        }
+        if (obj->isAllocated() && objRhs->isAllocated())
+        {
+            if (*obj == *objRhs)
+            {
+                id = next(id);
+                idRhs = next(idRhs);
+                continue;
+            }
+            else
             {
                 return false;
             }
-            obj++;
         }
+        return false;
     }
     return true;
 }
@@ -345,6 +377,7 @@ XtOStream& operator<<(XtOStream& pOS, XtTable<T>& pTable)
 template <typename T>
 XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
 {
+    pTable.clear();
     pIS >> pTable.mFreeList;
     pIS >> pTable.mPagesCnt;
     pIS >> pTable.mPagesCap;
@@ -355,10 +388,9 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
     pIS >> pTable.mBeginId;
     pIS >> pTable.mAllocCnt;
     pTable.mPages = new XtTablePage*[pTable.mPagesCap]; //similar to vector::reserve before push_back, avoid reallocating
-
     for (uint pageIdx = 0; pageIdx < pTable.mPagesCnt; pageIdx++)
     {
-        XtTablePage* page = pTable.mPages[pageIdx];
+        XtTablePage*& page = pTable.mPages[pageIdx];
         page = (XtTablePage*)malloc(sizeof(XtTablePage) + pTable.mPageSize*sizeof(T));
         page->mAllocCnt = 0;
         T* obj = (T*)(page->mObjects);
@@ -371,6 +403,7 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
             {
                 page->mAllocCnt++;
                 obj->mIntId = ((char*)obj - pTable.mPages[pageIdx]->mObjects) | XT_INTID_ALLOC_BIT;
+                new (obj) T();
                 pIS >> *obj;
             }
             else

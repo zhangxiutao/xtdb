@@ -11,7 +11,7 @@ class MyShapeQuery : public XtShapeQuery
 {
 public:
     MyShapeQuery(XtBlock* pBlock):XtShapeQuery(pBlock){};
-    void OnShapeFound(XtShape* pShape) override
+    void onShapeFound(XtShape* pShape) override
     {
         XtRectangle* rect = (XtRectangle*)pShape;
         cout << rect->getX1() << "," << rect->getY1() << "," << rect->getX2() << "," << rect->getY2() << endl;

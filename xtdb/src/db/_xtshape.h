@@ -6,8 +6,8 @@ namespace xtdb {
 class _XtShape: public _XtObject
 {
 public:
-    bool mSelected;
     _XtTech::layer_type mLayer;
+    ~_XtShape(){};
 protected:
     _XtShape(_XtTech::layer_type pLayer);
 };
