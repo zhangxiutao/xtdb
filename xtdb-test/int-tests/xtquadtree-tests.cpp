@@ -15,7 +15,6 @@ public:
     unordered_set<XtShape*> mFoundShapes;
     void onShapeFound(XtShape* pShape)
     {
-       cout << pShape << endl;
        mFoundShapes.insert(pShape);
     }
 };

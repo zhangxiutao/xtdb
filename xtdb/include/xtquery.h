@@ -10,7 +10,7 @@ protected:
     XtBlock* mBlock;
 public:
     XtQuery(XtBlock* pBlock);
-    virtual void query(const XtRect& pRegion) = 0;
+    virtual void query(const XtRect& pRegion, bool ONLY_FULLY_CONTAINED = false) = 0;
 };
 }
 
