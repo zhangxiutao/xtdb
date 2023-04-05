@@ -46,6 +46,11 @@ void XtBlock::load(const char* pFileNm)
     _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
     XtIStream is(pFileNm);
     is >> *block;
+    XtSet<XtShape*> shapesSet = getAllShapes();
+    for (XtIterator it = shapesSet.begin(); it != shapesSet.end(); it++)
+    {
+        block->mQuadtree->insert(reinterpret_cast<_XtRectangle*>(*it));
+    }
 }
 
 void XtBlock::write(const char* pFileNm)
