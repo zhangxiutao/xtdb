@@ -8,7 +8,7 @@ class XtBlock
 private:
     ~XtBlock() = delete;
 public:
-    XtSet<XtShape> getAllShapes();
+    XtSet<XtShape*> getAllShapes();
     static XtBlock* create();
     static void destroy(XtBlock* pBlock);
     void load(const char* pFileNm);

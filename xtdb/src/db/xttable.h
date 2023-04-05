@@ -392,6 +392,8 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
     {
         XtTablePage*& page = pTable.mPages[pageIdx];
         page = (XtTablePage*)malloc(sizeof(XtTablePage) + pTable.mPageSize*sizeof(T));
+        page->mPageShiftedIdx = pageIdx << pTable.mPageShift;
+        page->mTable = &pTable;
         page->mAllocCnt = 0;
         T* obj = (T*)(page->mObjects);
         T* endObj = obj + pTable.mPageSize;

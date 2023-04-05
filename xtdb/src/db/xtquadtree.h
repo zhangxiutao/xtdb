@@ -38,10 +38,10 @@ template <typename T>
 XtQuadtreeNode<T>::XtQuadtreeNode(const XtRect& pZone, int pLevel):
     mLevel(pLevel), mZone(pZone),
     mChildrenZones{
-        XtRect(mZone.left() + mZone.width()/2, mZone.top(), mZone.width()/2, mZone.height()/2),
+        XtRect(mZone.left() + mZone.width()/2, mZone.top(), mZone.width(), mZone.height()/2),
         XtRect(mZone.left(), mZone.top(), mZone.width()/2, mZone.height()/2),
-        XtRect(mZone.left(), mZone.top() + mZone.height()/2, mZone.width()/2, mZone.height()/2),
-        XtRect(mZone.left() + mZone.width()/2, mZone.top() + mZone.height()/2, mZone.width()/2, mZone.height()/2)
+        XtRect(mZone.left(), mZone.top() + mZone.height()/2, mZone.width()/2, mZone.height()),
+        XtRect(mZone.left() + mZone.width()/2, mZone.top() + mZone.height()/2, mZone.width(), mZone.height())
 }, mChildren{nullptr, nullptr, nullptr, nullptr}
 {
 }

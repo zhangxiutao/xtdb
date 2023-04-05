@@ -17,14 +17,14 @@ public:
 template <typename T>
 XtIterator<T> XtSet<T>::begin()
 {
-    XtContainer* xtcontainer = (XtContainer*)mContainer;
+    XtContainer* xtcontainer = reinterpret_cast<XtContainer*>(mContainer);
     return XtIterator<T>(xtcontainer, xtcontainer->begin());
 }
 
 template <typename T>
 XtIterator<T> XtSet<T>::end()
 {
-    XtContainer* xtcontainer = (XtContainer*)mContainer;
+    XtContainer* xtcontainer = reinterpret_cast<XtContainer*>(mContainer);
     return XtIterator<T>(xtcontainer, xtcontainer->end());
 }
 

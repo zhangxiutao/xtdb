@@ -16,8 +16,8 @@ public:
     XtIterator operator++(int);
     bool operator==(const XtIterator& pItr);
     bool operator!=(const XtIterator& pItr);
-    T& operator*();
-    T* operator->();
+    T operator*();
+    T operator->();
 };
 
 template <typename T>
@@ -30,7 +30,7 @@ XtIterator<T>::XtIterator(void* pContainer, uint pId):
 template <typename T>
 inline XtIterator<T>& XtIterator<T>::operator++()
 {
-    mExtId = ((XtContainer*)mContainer)->next(mExtId);
+    mExtId = reinterpret_cast<XtContainer*>(mContainer)->next(mExtId);
     return *this;
 }
 
@@ -38,7 +38,7 @@ template <typename T>
 inline XtIterator<T> XtIterator<T>::operator++(int)
 {
     uint tmpId = mExtId;
-    mExtId = ((XtContainer*)mContainer)->next(mExtId);
+    mExtId = reinterpret_cast<XtContainer*>(mContainer)->next(mExtId);
     return XtIterator(mContainer, tmpId);
 }
 
@@ -55,15 +55,15 @@ inline bool XtIterator<T>::operator!=(const XtIterator& pItr)
 }
 
 template <typename T>
-inline T& XtIterator<T>::operator*()
+inline T XtIterator<T>::operator*()
 {
-    return *(T*)(((XtContainer*)mContainer)->getPtr(mExtId));
+    return reinterpret_cast<T>(reinterpret_cast<XtContainer*>(mContainer)->getPtr(mExtId));
 }
 
 template <typename T>
-inline T* XtIterator<T>::operator->()
+inline T XtIterator<T>::operator->()
 {
-    return (T*)(((XtContainer*)mContainer)->getPtr(mExtId));
+    return reinterpret_cast<T>(reinterpret_cast<XtContainer*>(mContainer)->getPtr(mExtId));
 }
 
 }
