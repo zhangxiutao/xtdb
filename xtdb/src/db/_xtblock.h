@@ -4,7 +4,7 @@
 #include "_xtrectangle.h"
 #include "xtquadtree.h"
 namespace xtdb {
-
+class XtRectangle;
 class _XtBlock: public _XtObject
 {
 public://TODO: change into stack-alocated mRectTbl

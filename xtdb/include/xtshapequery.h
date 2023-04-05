@@ -9,6 +9,7 @@ class XtShapeQuery : public XtQuery
 public:
     XtShapeQuery(XtBlock* pBlock);
     void query(const XtRect& pRegion) override;
+    void onShapeFoundWrapper(XtShape* pShape);
     virtual void onShapeFound(XtShape* pShape) = 0;
 };
 

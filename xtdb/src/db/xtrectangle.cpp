@@ -55,6 +55,11 @@ void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
     rect->mX2 = pX2;
     rect->mY1 = pY1;
     rect->mY2 = pY2;
+    rect->mW = rect->mX2 - rect->mX1;
+    rect->mH = rect->mY2 - rect->mY1;
+    rect->mOwnerNode->removeObj(rect);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
+    block->mQuadtree->insert(rect);
 }
 
 int XtRectangle::getX1()
@@ -82,6 +87,9 @@ void XtRectangle::setX1(int pX1)
     _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mX1 = pX1;
     rect->mW = rect->mX2 - rect->mX1;
+    rect->mOwnerNode->removeObj(rect);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
+    block->mQuadtree->insert(rect);
 }
 
 void XtRectangle::setY1(int pY1)
@@ -89,6 +97,9 @@ void XtRectangle::setY1(int pY1)
     _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mY1 = pY1;
     rect->mH = rect->mY2 - rect->mY1;
+    rect->mOwnerNode->removeObj(rect);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
+    block->mQuadtree->insert(rect);
 }
 
 void XtRectangle::setX2(int pX2)
@@ -96,6 +107,9 @@ void XtRectangle::setX2(int pX2)
     _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mX2 = pX2;
     rect->mW = rect->mX2 - rect->mX1;
+    rect->mOwnerNode->removeObj(rect);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
+    block->mQuadtree->insert(rect);
 }
 
 void XtRectangle::setY2(int pY2)
@@ -103,6 +117,9 @@ void XtRectangle::setY2(int pY2)
     _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     rect->mY2 = pY2;
     rect->mH = rect->mY2 - rect->mY1;
+    rect->mOwnerNode->removeObj(rect);
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
+    block->mQuadtree->insert(rect);
 }
 
 void XtRectangle::destroy()

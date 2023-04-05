@@ -3,7 +3,11 @@
 #include <memory>
 #include "xtrect.h"
 #include <unordered_set>
+#include <functional>
+
 namespace xtdb {
+class XtShape;
+
 template <typename T>
 class XtQuadtreeNode
 {
@@ -20,8 +24,9 @@ public:
     bool contains(const XtRect& pZone) const;
     bool intersects(const XtRect& pZone) const;
     void insert(const T& pObj);
-    void search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs); //TODO:is QSet<T&> better?
-    void getAllObjsOfSubtree(std::unordered_set<T>& pResList);
+    void search(const XtRect& pZone, const std::function<void(XtShape*)>& pOnShapeFound);
+//    void search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs); //TODO:is QSet<T&> better?
+    void getAllObjsOfSubtree(const std::function<void(XtShape*)>& pOnShapeFound);
     void removeObj(const T& pObj);
     void resize(const XtRect& pZone);
     void removeObjsIn(const XtRect& pZone);
@@ -145,13 +150,14 @@ void XtQuadtreeNode<T>::insert(const T& pObj)
 }
 
 template <typename T>
-void XtQuadtreeNode<T>::search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs)
+void XtQuadtreeNode<T>::search(const XtRect& pZone, const std::function<void(XtShape*)>& pOnShapeFound)
 {
     for(typename std::unordered_set<T>::const_iterator it = mObjs.cbegin(); it != mObjs.cend(); it++)
     {
         if((*it)->getZone().intersects(pZone))
         {
-            pFoundObjs.insert(*it);
+            XtShape* shape = reinterpret_cast<XtShape*>(*it);
+            pOnShapeFound(shape);
         }
     }
     for (int i = 0; i < 4; i++)
@@ -160,28 +166,29 @@ void XtQuadtreeNode<T>::search(const XtRect& pZone, std::unordered_set<T>& pFoun
         {
             if(pZone.contains(mChildrenZones[i]))
             {
-                mChildren[i]->getAllObjsOfSubtree(pFoundObjs);
+                mChildren[i]->getAllObjsOfSubtree(pOnShapeFound);
             }
             else if(pZone.intersects(mChildrenZones[i]))
             {
-                mChildren[i]->search(pZone, pFoundObjs);
+                mChildren[i]->search(pZone, pOnShapeFound);
             }
         }
     }
 }
 
 template <typename T>
-void XtQuadtreeNode<T>::getAllObjsOfSubtree(std::unordered_set<T>& pResList)
+void XtQuadtreeNode<T>::getAllObjsOfSubtree(const std::function<void(XtShape*)>& pOnShapeFound)
 {
     for (typename std::unordered_set<T>::iterator it = mObjs.begin(); it != mObjs.end(); it++)
     {
-        pResList.insert(*it);
+        XtShape* shape = reinterpret_cast<XtShape*>(*it);
+        pOnShapeFound(shape);
     }
     for (int i = 0; i < 4; i++)
     {
         if (mChildren[i])
         {
-            mChildren[i]->getAllObjsOfSubtree(pResList);
+            mChildren[i]->getAllObjsOfSubtree(pOnShapeFound);
         }
     }
 }
@@ -194,7 +201,8 @@ public:
     XtQuadtree();
     ~XtQuadtree();
     void insert(const T& pObj);
-    void search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs);
+    void search(const XtRect& pZone, const std::function<void(XtShape*)>& pOnShapeFound);
+//    void search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs);
     void clear(XtQuadtreeNode<T>* pQuadtreeNode);
 };
 
@@ -217,9 +225,9 @@ void XtQuadtree<T>::insert(const T& pObj)
 }
 
 template <typename T>
-void XtQuadtree<T>::search(const XtRect& pZone, std::unordered_set<T>& pFoundObjs)
+void XtQuadtree<T>::search(const XtRect& pZone, const std::function<void(XtShape*)>& pOnShapeFound)
 {
-    mRoot->search(pZone, pFoundObjs);
+    mRoot->search(pZone, pOnShapeFound);
 }
 
 template <typename T>
