@@ -2,10 +2,11 @@
 #define _XTRECTANGLE_H
 #include "_xtshape.h"
 #include "xtrect.h"
-#include "xtquadtree.h"
 
 namespace xtdb {
 class _XtBlock;
+template <typename T>
+class XtQuadtreeNode;
 class _XtRectangle: public _XtShape
 {
 public:

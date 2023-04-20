@@ -57,7 +57,7 @@ void XtRectangle::setCoodinates(int pX1, int pY1, int pX2, int pY2)
     rect->mY2 = pY2;
     rect->mW = rect->mX2 - rect->mX1;
     rect->mH = rect->mY2 - rect->mY1;
-    rect->mOwnerNode->removeObj(rect);
+    rect->mOwnerNode->removeObj(rect); //reset coordinate causes the change of quadtree ownernode
     _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
     block->mQuadtree->insert(rect);
 }

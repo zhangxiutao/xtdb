@@ -1,9 +1,7 @@
 #ifndef _XTTECH_H
 #define _XTTECH_H
 #include "xtsize.h"
-#include "xtcolor.h"
 namespace xtdb {
-//TODO: implement reading ini files and singleton
 class _XtTech
 {
 public:
@@ -17,7 +15,7 @@ public:
         METAL3,
         POLY
     };
-    static XtColor textureOfLayer[4];
+//    static XtColor textureOfLayer[4];
 };
 }
 #endif // XTTECH_H

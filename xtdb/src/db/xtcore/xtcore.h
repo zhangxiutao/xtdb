@@ -1,8 +1,8 @@
 #ifndef XTCORE_H
 #define XTCORE_H
 #include "xttypes.h"
-#include "xtobjectpage.h"
 #include "xtstream.h"
+#include "xtobjectpage.h"
 #include <unordered_map>
 
 namespace xtdb {
