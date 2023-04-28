@@ -2,6 +2,7 @@ add_library(
     common OBJECT
     xtexception.cpp
     xtopermat.cpp
+    xtpoint.cpp
 )
 add_custom_target(
     headers_common SOURCES

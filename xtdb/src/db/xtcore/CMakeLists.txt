@@ -12,7 +12,7 @@ target_include_directories(
     ${PROJECT_SOURCE_DIR}/xtdb/src/common
 )
 target_link_libraries(
-    xtcore PUBLIC
+    xtcore PRIVATE
     common
 )
 add_custom_target(

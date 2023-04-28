@@ -5,6 +5,8 @@
 #include <cstdio>
 #include <cstring>
 #include <cstdlib>
+#include <string>
+#include <vector>
 
 class XtIStream
 {
@@ -16,6 +18,10 @@ private:
 //                     "write failed on database stream; system io error: ");
 //    }
 public:
+    XtIStream(const std::string& pFileNm)
+    {
+        mFp = fopen(pFileNm.c_str(), "r");
+    };
     XtIStream(const char *pFileNm)
     {
         mFp = fopen(pFileNm, "r");
@@ -80,7 +86,21 @@ public:
         }
         return *this;
     }
-
+    template <typename T>
+    XtIStream& operator>>(std::vector<T>& pVec)
+    {
+        pVec.clear();
+        uint sz;
+        *this >> sz;
+        pVec.reserve(sz);
+        T t;
+        for (uint i = 0; i < sz; ++i)
+        {
+            *this >> t;
+            pVec.push_back(t);
+        }
+        return *this;
+    }
 };
 
 class XtOStream
@@ -93,6 +113,10 @@ private:
 //                     "write failed on database stream; system io error: ");
 //    }
 public:
+    XtOStream(const std::string& pFileNm)
+    {
+        mFp = fopen(pFileNm.c_str(), "a");
+    };
     XtOStream(const char* pFileNm)
     {
         mFp = fopen(pFileNm, "a");
@@ -152,6 +176,17 @@ public:
         if (R_ABNORMAL == fwrite(&pC, sizeof(pC), 1, mFp))
         {
             //read_error();
+        }
+        return *this;
+    }
+    template <typename T>
+    XtOStream& operator<<(std::vector<T>& pVecs)
+    {
+        uint sz = pVecs.size();
+        *this << sz;
+        for (const auto& item : pVecs)
+        {
+            *this << item;
         }
         return *this;
     }

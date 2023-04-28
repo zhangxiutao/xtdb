@@ -1,20 +1,37 @@
 #ifndef _XTBLOCK_H
 #define _XTBLOCK_H
 #include "xttable.h"
-#include "_xtrectangle.h"
 #include "xtquadtree.h"
 namespace xtdb {
-class XtRectangle;
+class _XtRectangle;
+class _XtInst;
+class _XtWireSeg;
+class _XtPortInst;
+class _XtPort;
+class _XtVia;
+class _XtLine;
 class _XtBlock: public _XtObject
 {
-public://TODO: change into stack-alocated mRectTbl
-    XtTable<_XtRectangle>* mRectTbl; //我不能new一个_XtShape，所以XtTable<_XtShape>::create()应该是会编译报错的。XtTable的模板参数一定是具体类。TODO:非指针类型是不是更好？
+public:
+    char* mName;
+    uint mNext;
+    uint mDoubleLLPrev;
+    uint mDoubleLLNext;
+    XtTable<_XtInst>* mInstTbl;
+    XtTable<_XtWireSeg>* mWireSegTbl;
+    XtTable<_XtPortInst>* mPortInstTbl;
+    XtTable<_XtPort>* mPortTbl;
+    XtTable<_XtVia>* mViaTbl;
+
+    XtTable<_XtRectangle>* mRectTbl;
+    XtTable<_XtLine>* mLineTbl;
     XtQuadtree<_XtRectangle*>* mQuadtree;
 public:
     _XtBlock();
     ~_XtBlock();
     //getAllShapes是怎么实现的？难道是将所有存储shape的table的信息综合起来生成一个新的table？这样效率不是很低？
     bool operator==(const _XtBlock& pRhs) const;
+
 };
 
 }

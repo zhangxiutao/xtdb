@@ -3,7 +3,7 @@
 #include <unordered_set>
 #include "xtrectangle.h"
 #include <functional>
-
+#include "_xtrectangle.h"
 namespace xtdb {
 XtShapeQuery::XtShapeQuery(XtBlock* pBlock):XtQuery(pBlock)
 {

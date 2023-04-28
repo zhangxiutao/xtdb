@@ -1,18 +1,22 @@
 #ifndef XTBLOCK_H
 #define XTBLOCK_H
 #include "xtset.h"
-#include "xtshape.h"
+
 namespace xtdb {
+class XtShape;
+class XtInst;
 class XtBlock
 {
 private:
     ~XtBlock() = delete;
 public:
     XtSet<XtShape*> getAllShapes();
+    XtSet<XtInst*> getAllInsts();
     static XtBlock* create();
     static void destroy(XtBlock* pBlock);
-    void load(const char* pFileNm);
-    void write(const char* pFileNm);
+    static void loadAllSubBlocks(const char* pCellViewNm);
+    void load(const char* pCellViewNm);
+    void write(const char* pCellViewNm);
     bool operator==(const XtBlock& pRhs) const;
 };
 }

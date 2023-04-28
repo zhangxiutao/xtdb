@@ -1,1 +1,28 @@
 add_subdirectory(src)
+add_custom_target(
+    headers_public SOURCES
+    include/xtblock.h
+    include/xtcontainer.h
+    include/xtdb.h
+    include/xteobject.h
+    include/xtnetobject.h
+    include/xtwireseg.h
+    include/xtport.h
+    include/xtvia.h
+    include/xtportobject.h
+    include/xtportinst.h
+    include/xtexception.h
+    include/xtinst.h
+    include/xtiterator.h
+    include/xtobject.h
+    include/xtopermat.h
+    include/xtpoint.h
+    include/xtquery.h
+    include/xtrect.h
+    include/xtrectangle.h
+    include/xtset.h
+    include/xtshape.h
+    include/xtshapequery.h
+    include/xtsize.h
+    include/xttypes.h
+)

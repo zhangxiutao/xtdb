@@ -1,13 +1,16 @@
 add_subdirectory(xtcore)
 add_subdirectory(xtmodel)
+add_subdirectory(xtdm) 
 add_library(
-    xtdb STATIC
+    xtdb SHARED
     xttech.cpp
 )
 target_link_libraries(
-    xtdb PUBLIC
+    xtdb PRIVATE
     xtmodel
     xtcore
+    xtdm
+    common
 )
 target_include_directories(
    xtdb PUBLIC

@@ -5,17 +5,11 @@
 #include <vector>
 
 namespace xtdb {
-class _XtNet;
-class _XtShape;
-class _XtVia;
 class _XtWireSeg : public _XtNetObject
 {
 public:
     _XtWireSeg();
-    _XtNet* mNet;
-    _XtShape* mShape;
-    std::vector<_XtWireSeg*> mConnectedWireSegs;
-    std::vector<_XtVia*> mConnectedVias;
+    uint mShapeId;
 };
 }
 #endif // _XTWIRE_H
