@@ -2,7 +2,6 @@
 #include "_xtblock.h"
 #include "_xtrectangle.h"
 #include "xttable.h"
-#include "xthashtable.h"
 #include "xtstream.h"
 #include <fstream>
 #include "xtdm.h"
@@ -16,10 +15,12 @@
 #include "_xtrectangle.h"
 
 namespace xtdb {
-static XtTable<_XtBlock> blockTbl;
-static XtHashTable<_XtBlock> blockHashTbl(&blockTbl);
+XtTable<_XtBlock> _XtBlock::blockTbl;
+XtHashTable<_XtBlock> _XtBlock::blockHashTbl(&blockTbl);
 
-_XtBlock::_XtBlock():mInstTbl(new XtTable<_XtInst>(this)),
+_XtBlock::_XtBlock():mName(nullptr), mNext(0),
+    mDoubleLLPrev(0), mDoubleLLNext(0),
+    mInstTbl(new XtTable<_XtInst>(this)),
     mWireSegTbl(new XtTable<_XtWireSeg>(this)),
     mPortInstTbl(new XtTable<_XtPortInst>(this)),
     mPortTbl(new XtTable<_XtPort>(this)),
@@ -37,8 +38,8 @@ _XtBlock::~_XtBlock()
 }
 
 bool _XtBlock::operator==(const _XtBlock& pRhs) const
-{
-    return (*mRectTbl == *pRhs.mRectTbl);
+{   //TODO: compare more tables
+    return (*mRectTbl == *pRhs.mRectTbl) && (*mInstTbl == *pRhs.mInstTbl);
 }
 
 XtSet<XtShape*> XtBlock::getAllShapes()
@@ -66,53 +67,84 @@ XtIStream& operator>>(XtIStream& pIS, _XtBlock& pBlock)
     return pIS;
 }
 //cell view name example: invertor/layout
-void XtBlock::loadAllSubBlocks(const char* pCellViewNm)
+//return id of root block
+uint XtBlock::loadAllSubBlocks(const char* pCellViewNm)
 {
-    if (blockHashTbl.find(pCellViewNm))
+    _XtBlock* foundBlock = _XtBlock::blockHashTbl.find(pCellViewNm);
+    if (foundBlock)
     {
-        return;
+        uint blockId = foundBlock->getExtId();
+        return blockId;
     }
     XtBlock* block = XtBlock::create();
     block->load(pCellViewNm);
-    blockHashTbl.insert(reinterpret_cast<_XtBlock*>(block)); //TODO: check if it is better to insert inside XtBlock::load
+    _XtBlock::blockHashTbl.insert(reinterpret_cast<_XtBlock*>(block)); //TODO: check if it is better to insert inside XtBlock::load
 
     XtSet<XtInst*> instsSet = block->getAllInsts();
     for (XtIterator<XtInst*> it = instsSet.begin(); it != instsSet.end(); it++)
     {
         XtInst* inst = (XtInst*)(*it);
-        std::string cellViewNm = inst->getCellViewNm();
-        loadAllSubBlocks(cellViewNm.c_str());
+        std::string cellViewNm = inst->getCellViewName();
+        uint loadedBlkId = loadAllSubBlocks(cellViewNm.c_str());
+        inst->setBlockId(loadedBlkId);
     }
+    return block->getId();
+}
+
+void XtBlock::setName(const char* pName)
+{
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
+    if (block->mName)
+    {
+        free(block->mName);
+    }
+    block->mName = strdup(pName);
 }
 
 //load all objects from disk into memory
 void XtBlock::load(const char* pCellViewNm)
 {
-    std::string cellViewPath = XtDM::cellViewNmToFilePath(pCellViewNm);
+    std::filesystem::path cellViewPath = XtDM::cellViewNmToFilePath(pCellViewNm);
     _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
-    XtIStream is(cellViewPath);
+    XtIStream is(cellViewPath.string());
     is >> *block;
     XtSet<XtInst*> instSet = getAllInsts();
     for (XtIterator<XtInst*> instIt = instSet.begin(); instIt != instSet.end(); instIt++)
     {
-        XtRectangle* rect = instIt->getShape();
-        block->mQuadtree->insert(reinterpret_cast<_XtRectangle*>(rect));
+        if (instIt->placed())
+        {
+            XtRectangle* rect = instIt->getShape();
+            block->mQuadtree->insert(reinterpret_cast<_XtRectangle*>(rect));
+        }
     }
     XtSet<XtShape*> shapesSet = getAllShapes();
     for (XtIterator<XtShape*> it = shapesSet.begin(); it != shapesSet.end(); it++)
     {
         block->mQuadtree->insert(reinterpret_cast<_XtRectangle*>(*it));
     }
+    setName(pCellViewNm);
+}
+
+XtSet<XtBlock*> XtBlock::getAllBlocks()
+{
+    return XtSet<XtBlock*>(&_XtBlock::blockTbl);
+}
+
+void XtBlock::saveAndClose(const char* pCellViewNm)
+{
+    write(pCellViewNm);
+    destroy(this);
 }
 
 void XtBlock::write(const char* pCellViewNm)
 {
     _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
-    std::string cellViewPath = XtDM::cellViewNmToFilePath(pCellViewNm);
+    std::filesystem::path cellViewPath = XtDM::cellViewNmToFilePath(pCellViewNm);
+    std::filesystem::create_directories(cellViewPath.parent_path());
 
-    std::ofstream file(cellViewPath, std::ios::out | std::ios::trunc); //create empty file TODO:create folder if it doesn't exist
+    std::ofstream file(cellViewPath.string(), std::ios::out | std::ios::trunc); //create empty file TODO:create folder if it doesn't exist
     file.close();
-    XtOStream os(cellViewPath);
+    XtOStream os(cellViewPath.string());
     os << *block;
 }
 
@@ -123,13 +155,14 @@ bool XtBlock::operator==(const XtBlock& pRhs) const
 
 XtBlock* XtBlock::create()
 {
-    XtBlock* block = reinterpret_cast<XtBlock*>(blockTbl.create());
+    XtBlock* block = reinterpret_cast<XtBlock*>(_XtBlock::blockTbl.create());
     return block;
 }
 
 void XtBlock::destroy(XtBlock* pBlock)
 {
     _XtBlock* block = reinterpret_cast<_XtBlock*>(pBlock);
-    blockTbl.destroy(block);
+    _XtBlock::blockTbl.destroy(block);
 }
+
 }

@@ -25,4 +25,5 @@ add_custom_target(
     include/xtshapequery.h
     include/xtsize.h
     include/xttypes.h
+    include/xtdm.h
 )

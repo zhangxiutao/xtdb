@@ -19,5 +19,6 @@ TEST_CASE("destroy one XtObject", "[destroy one XtObject]")
         REQUIRE(rect1->isAlive());
         rect1->destroy();
         REQUIRE(!(rect1->isAlive()));
+        XtBlock::destroy(block1);
     }
 }

@@ -51,6 +51,7 @@ public:
         return mPages[pExtId >> mPageShift];
     }
     void clear();
+    uint size() const override;
 };
 template <typename T>
 XtOStream& operator<<(XtOStream &pStream, XtTable<T>& table);
@@ -169,7 +170,7 @@ T* XtTable<T>::create()
     objAddr->mIntId |= XT_INTID_ALLOC_BIT;
     objAddr->getPageHeader()->mAllocCnt++;
     uint extId = objAddr->getExtId();
-    if (extId < mBeginId)
+    if (extId < mBeginId || 0 == mBeginId)
     {
         mBeginId = extId;
     }
@@ -420,5 +421,10 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
     return pIS;
 }
 
+template <typename T>
+uint XtTable<T>::size() const
+{
+    return mAllocCnt;
+}
 }
 #endif // XTTABLE_H

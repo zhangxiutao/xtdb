@@ -126,8 +126,8 @@ void XtRectangle::destroy()
 {
     _XtRectangle* rect = reinterpret_cast<_XtRectangle*>(this);
     _XtBlock* block = reinterpret_cast<_XtBlock*>(rect->getOwner());
-    block->mRectTbl->destroy(rect);
     rect->mOwnerNode->removeObj(rect);
+    block->mRectTbl->destroy(rect); //this calls destructor of rect, must be called at the end
 }
 
 XtOStream& operator<<(XtOStream& pOS, _XtRectangle& pRect)

@@ -1,3 +1,5 @@
+#ifndef XTHASHTABLE_H
+#define XTHASHTABLE_H
 #include "xttable.h"
 #include "xttypes.h"
 namespace xtdb {
@@ -112,6 +114,10 @@ void XtHashTable<T>::growTable()
 template <typename T>
 T* XtHashTable<T>::find(const char* pName)
 {
+    if (0 == mCapacity)
+    {
+        return nullptr;
+    }
     uint cur = mData[hashString(pName)];
     while (0 != cur)
     {
@@ -226,4 +232,4 @@ void XtHashTable<T>::clear()
 }
 
 }
-
+#endif

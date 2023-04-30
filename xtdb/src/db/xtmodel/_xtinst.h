@@ -13,17 +13,20 @@ class _XtInst : public _XtEObject
 {
 public:
     char* mName;
-    char* mCellNm;
-    char* mViewNm;
+    char* mCellViewNm; //const char* cannot be freed, during streaming in, malloc is performed, it must be freed.
+    uint mBlockId;
     uint mShapeId;
     XtPoint mOrigin;
     XtOperMat mTransform;
+    bool mPlaced;
     std::vector<uint> mPortInstIds;
 //    std::unordered_map<std::string, std::string> mCustomParams;
 public:
    _XtInst();
+   ~_XtInst();
     void setOrigin(const XtPoint& pPnt);
     void setTransform(const XtOperMat& pOperMat);
+    bool operator==(const _XtInst& pRhs) const;
 };
 XtOStream& operator<<(XtOStream& pOS, _XtInst& pInst);
 XtIStream& operator>>(XtIStream& pIS, _XtInst& pInst);

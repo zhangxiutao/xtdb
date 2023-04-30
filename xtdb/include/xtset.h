@@ -12,6 +12,8 @@ public:
     XtSet(void* pContainer);
     XtIterator<T> begin();
     XtIterator<T> end();
+    bool empty();
+    uint size();
 };
 
 template <typename T>
@@ -32,7 +34,19 @@ template <typename T>
 XtSet<T>::XtSet(void* pContainer):mContainer(pContainer)
 {
 
-};
+}
 
+template <typename T>
+bool XtSet<T>::empty()
+{
+    return (begin() == end());
+}
+
+template <typename T>
+uint XtSet<T>::size()
+{
+    XtContainer* xtcontainer = reinterpret_cast<XtContainer*>(mContainer);
+    return xtcontainer->size();
+}
 }
 #endif // XTSET_H

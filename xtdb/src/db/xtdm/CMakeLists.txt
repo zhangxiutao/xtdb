@@ -2,9 +2,9 @@ add_library(
     xtdm OBJECT
     xtdm.cpp
 )
-add_custom_target(
-    headers_xtdm SOURCES
-    xtdm.h
+target_include_directories(
+    xtdm PRIVATE
+    ${PROJECT_SOURCE_DIR}/xtdb/include
 )
 install(TARGETS xtdm EXPORT xtdbTargets
         ARCHIVE DESTINATION lib)

@@ -28,5 +28,6 @@ TEST_CASE("region query", "[region query]")
         rect2->setCoodinates(100, 100, 200, 200);
         MyShapeQuery msq(block1);
         msq.query(XtRect(25, 25, 75, 75));
+        XtBlock::destroy(block1);
     }
 }

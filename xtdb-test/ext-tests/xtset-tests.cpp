@@ -38,5 +38,6 @@ TEST_CASE("iterate through xttable", "[iterate through xttable]")
                 break;
             }
         }
+        XtBlock::destroy(block1);
     }
 }

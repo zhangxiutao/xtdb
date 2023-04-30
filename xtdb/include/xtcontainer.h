@@ -10,6 +10,7 @@ public:
     virtual uint end() const = 0;
     virtual uint next(uint pExtId) const = 0;
     virtual _XtObject* getPtr(uint pExtId) const = 0;
+    virtual uint size() const = 0;
 };
 }
 #endif // XTITERATOR_H
