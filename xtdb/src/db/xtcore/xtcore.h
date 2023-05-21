@@ -6,7 +6,6 @@
 #include <unordered_map>
 
 namespace xtdb {
-
 class _XtObject
 {
 public:
@@ -36,6 +35,16 @@ public:
     uint mObjSize;
     _XtObject* mOwner;
     XtObjectTable(uint pObjSize, _XtObject* pObj):mObjSize(pObjSize), mOwner(pObj){};
+};
+
+class _XtNamedObject
+{
+public:
+    char* mName;
+    uint mNext;
+    uint mDoubleLLPrev; //support double linked list of xthashtable
+    uint mDoubleLLNext;
+    _XtNamedObject():mName(nullptr), mNext(0), mDoubleLLPrev(0), mDoubleLLNext(0){};
 };
 
 XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj);

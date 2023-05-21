@@ -41,6 +41,7 @@ public:
     uint begin () const override;
     uint end() const override {return 0;};
     uint next(uint pExtId) const override;
+    bool empty() const override;
     bool operator==(const XtTable& pRhs) const;
     bool isAllocated(uint pExtId) const
     {
@@ -419,6 +420,12 @@ XtIStream& operator>>(XtIStream& pIS, XtTable<T>& pTable)
         }
     }
     return pIS;
+}
+
+template <typename T>
+bool XtTable<T>::empty() const
+{
+    return begin() == end();
 }
 
 template <typename T>

@@ -19,7 +19,7 @@ target_include_directories(
 )
 
 install(TARGETS xtdb EXPORT xtdbTargets
-        ARCHIVE DESTINATION lib)
+        LIBRARY DESTINATION lib)
 install(DIRECTORY ${PROJECT_SOURCE_DIR}/xtdb/include DESTINATION ${CMAKE_INSTALL_PREFIX})
 install(EXPORT xtdbTargets
         FILE xtdbConfig.cmake

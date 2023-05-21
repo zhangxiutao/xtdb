@@ -20,14 +20,18 @@ public:
     uint hashString(const char* pName);
     void insert(T* pObj);
     T* find(const char* pName);
+    void remove(T* pObj);
     void remove(const char* pName);
     void clear();
     void growTable();
     void initItr();
     T* next();
+    uint size();
+    bool empty();
+    uint begin();
 };
 template <typename T>
-XtHashTable<T>::XtHashTable(XtTable<T>* pTbl):mData(nullptr), mTbl(pTbl), mObjCnt(1), mCapacity(0), mHeadDoubleLL(0), mItr(0)
+XtHashTable<T>::XtHashTable(XtTable<T>* pTbl):mData(nullptr), mTbl(pTbl), mObjCnt(0), mCapacity(0), mHeadDoubleLL(0), mItr(0)
 {
 }
 
@@ -135,6 +139,12 @@ T* XtHashTable<T>::find(const char* pName)
 }
 
 template <typename T>
+void XtHashTable<T>::remove(T* pObj)
+{
+    remove(pObj->mName);
+}
+
+template <typename T>
 void XtHashTable<T>::remove(const char* pName)
 {
     uint prev = 0;
@@ -183,6 +193,7 @@ void XtHashTable<T>::remove(const char* pName)
             nextObj->mDoubleLLPrev = prevObj->getExtId();
             curObj->mDoubleLLPrev = 0;
             curObj->mDoubleLLNext = 0;
+            mObjCnt--;
             break;
         }
         else
@@ -191,7 +202,6 @@ void XtHashTable<T>::remove(const char* pName)
             cur = curObj->mNext;
         }
     }
-    mObjCnt--;
     return;
 }
 
@@ -200,6 +210,12 @@ void XtHashTable<T>::initItr()
 {
     mItr = mHeadDoubleLL;
     return;
+}
+
+template <typename T>
+uint XtHashTable<T>::begin()
+{
+    return mHeadDoubleLL;
 }
 
 template <typename T>
@@ -231,5 +247,16 @@ void XtHashTable<T>::clear()
     }
 }
 
+template <typename T>
+uint XtHashTable<T>::size()
+{
+    return mObjCnt;
+}
+
+template <typename T>
+bool XtHashTable<T>::empty()
+{
+    return (0 == mObjCnt);
+}
 }
 #endif

@@ -26,4 +26,6 @@ add_custom_target(
     include/xtsize.h
     include/xttypes.h
     include/xtdm.h
+    include/xtnet.h
+    include/xtline.h
 )

@@ -7,9 +7,8 @@ namespace xtdb {
 class _XtPortInst : public _XtNetObject
 {
 public:
-    _XtPortInst();
-    char* mName;
     uint mInstId;
+    _XtPortInst();
 };
 }
 #endif // _XTPORTINST_H

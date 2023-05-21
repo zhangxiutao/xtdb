@@ -6,6 +6,7 @@
 namespace xtdb {
 class XtShape;
 class XtInst;
+class XtWireSeg;
 class XtBlock : public XtObject
 {
 private:
@@ -13,6 +14,7 @@ private:
 public:
     XtSet<XtShape*> getAllShapes();
     XtSet<XtInst*> getAllInsts();
+    XtSet<XtWireSeg*> getAllWiresegs();
     static XtSet<XtBlock*> getAllBlocks();
     static XtBlock* create();
     static void destroy(XtBlock* pBlock);

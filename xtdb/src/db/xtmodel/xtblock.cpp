@@ -13,6 +13,8 @@
 #include "_xtvia.h"
 #include "_xtline.h"
 #include "_xtrectangle.h"
+#include "_xtnet.h"
+#include "xtpccontainer.h"
 
 namespace xtdb {
 XtTable<_XtBlock> _XtBlock::blockTbl;
@@ -20,6 +22,7 @@ XtHashTable<_XtBlock> _XtBlock::blockHashTbl(&blockTbl);
 
 _XtBlock::_XtBlock():mName(nullptr), mNext(0),
     mDoubleLLPrev(0), mDoubleLLNext(0),
+    mNetTbl(new XtTable<_XtNet>(this)),
     mInstTbl(new XtTable<_XtInst>(this)),
     mWireSegTbl(new XtTable<_XtWireSeg>(this)),
     mPortInstTbl(new XtTable<_XtPortInst>(this)),
@@ -27,14 +30,25 @@ _XtBlock::_XtBlock():mName(nullptr), mNext(0),
     mViaTbl(new XtTable<_XtVia>),
     mLineTbl(new XtTable<_XtLine>),
     mRectTbl(new XtTable<_XtRectangle>(this)),
-    mQuadtree(new XtQuadtree<_XtRectangle*>())
+    mNetObjectTbl(new XtTable<_XtNetObject*>(this)),
+    mQuadtree(new XtQuadtree<_XtRectangle*>()),
+    mNetWireSegContainer(new XtPCContainer<_XtNet, _XtWireSeg>(mWireSegTbl))
 {
 }
 
 _XtBlock::~_XtBlock()
 {
+    delete mNetTbl;
+    delete mInstTbl;
+    delete mWireSegTbl;
+    delete mPortInstTbl;
+    delete mPortTbl;
+    delete mViaTbl;
+    delete mLineTbl;
     delete mRectTbl;
+    delete mNetObjectTbl;
     delete mQuadtree;
+    delete mNetWireSegContainer;
 }
 
 bool _XtBlock::operator==(const _XtBlock& pRhs) const
@@ -165,4 +179,8 @@ void XtBlock::destroy(XtBlock* pBlock)
     _XtBlock::blockTbl.destroy(block);
 }
 
+XtSet<XtWireSeg*> XtBlock::getAllWiresegs()
+{
+    return XtSet<XtWireSeg*>(reinterpret_cast<_XtBlock*>(this)->mWireSegTbl);
+}
 }

@@ -9,6 +9,7 @@ class _XtWireSeg : public _XtNetObject
 {
 public:
     _XtWireSeg();
+    ~_XtWireSeg();
     uint mShapeId;
 };
 }

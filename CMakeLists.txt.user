@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.2, 2023-04-30T15:39:35. -->
+<!-- Written by QtCreator 7.0.2, 2023-05-21T10:05:06. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -74,6 +74,9 @@
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/extension-tests.cpp:extension-tests">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp:xtblock-tests">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:xtnetwireseg-test">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:xtwireseg-test">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp:iterate through xttable">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtshapequery-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtshapequery-tests.cpp">Checked</value>

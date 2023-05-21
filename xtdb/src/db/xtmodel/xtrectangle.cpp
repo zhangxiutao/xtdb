@@ -7,7 +7,7 @@
 namespace xtdb {
 
 _XtRectangle::_XtRectangle():
-    mX1(0), mY1(0), mX2(0), mY2(0), mNext(0), mName(""), _XtShape(_XtTech::METAL1), mDoubleLLPrev(0), mDoubleLLNext(0)
+    mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
 {
 
 }

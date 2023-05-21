@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+namespace xtdb {
 class XtIStream
 {
 private:
@@ -191,5 +192,5 @@ public:
         return *this;
     }
 };
-
+}
 #endif // XTSTREAM_H

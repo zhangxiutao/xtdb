@@ -15,7 +15,7 @@ TEST_CASE("xtblock-tests", "[load all sub blocks]")
     SECTION("Default Settings")
     {
         //as a user, I want to load all sub blocks of a block into memory, so that I can access all nodes of the cell tree of this block
-        //create and write blocks
+        //create,write, and close blocks
         XtBlock* blk_inv = XtBlock::create();
         XtBlock* blk_pmos = XtBlock::create();
         XtSet<XtBlock*> blocks = XtBlock::getAllBlocks();
@@ -30,6 +30,7 @@ TEST_CASE("xtblock-tests", "[load all sub blocks]")
         blk_inv->saveAndClose("inv/layout.xtb");
         blk_pmos->saveAndClose(instCellViewName);
         REQUIRE(blocks.empty());
+
         //load all sub blocks of cell tree
         const char *cellView = "inv/layout.xtb";
         XtBlock::loadAllSubBlocks(cellView);

@@ -3,6 +3,7 @@
 #include "xttable.h"
 #include "xtquadtree.h"
 #include "xthashtable.h"
+#include "xtpccontainer.h"
 
 namespace xtdb {
 class _XtRectangle;
@@ -12,6 +13,8 @@ class _XtPortInst;
 class _XtPort;
 class _XtVia;
 class _XtLine;
+class _XtNet;
+class _XtNetObject;
 class _XtBlock: public _XtObject
 {
 public:
@@ -22,6 +25,7 @@ public:
     uint mNext;
     uint mDoubleLLPrev;
     uint mDoubleLLNext;
+    XtTable<_XtNet>* mNetTbl;
     XtTable<_XtInst>* mInstTbl;
     XtTable<_XtWireSeg>* mWireSegTbl;
     XtTable<_XtPortInst>* mPortInstTbl;
@@ -29,7 +33,11 @@ public:
     XtTable<_XtVia>* mViaTbl;
     XtTable<_XtRectangle>* mRectTbl;
     XtTable<_XtLine>* mLineTbl;
+    XtTable<_XtNetObject*>* mNetObjectTbl;
     XtQuadtree<_XtRectangle*>* mQuadtree;
+
+    //NON-PERSISTANT MEMBER
+    XtPCContainer<_XtNet, _XtWireSeg>* mNetWireSegContainer;
 
     static XtTable<_XtBlock> blockTbl;
     static XtHashTable<_XtBlock> blockHashTbl;

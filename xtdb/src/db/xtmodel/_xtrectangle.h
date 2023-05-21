@@ -7,7 +7,7 @@ namespace xtdb {
 class _XtBlock;
 template <typename T>
 class XtQuadtreeNode;
-class _XtRectangle: public _XtShape
+class _XtRectangle: public _XtShape, public _XtNamedObject
 {
 public:
     int mX1;
@@ -16,10 +16,6 @@ public:
     int mY2;
     int mW;
     int mH;
-    int mNext;
-    const char* mName;
-    int mDoubleLLPrev; //support double linked list of xthashtable
-    int mDoubleLLNext;
     XtQuadtreeNode<_XtRectangle*>* mOwnerNode;
 public:
     _XtRectangle();

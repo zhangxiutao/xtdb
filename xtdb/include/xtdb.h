@@ -7,5 +7,7 @@
 #include "xtsize.h"
 #include "xtrectangle.h"
 #include "xtshapequery.h"
+#include "xtnet.h"
+#include "xtwireseg.h"
 
 #endif // XTDB_H

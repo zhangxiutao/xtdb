@@ -44,6 +44,8 @@ add_custom_target(
     _xtportinst.h
     _xtline.h
     _xtinst.h
+    xtpccontainer.h
+    xttypemap.h
 )
 install(TARGETS xtmodel EXPORT xtdbTargets
         ARCHIVE DESTINATION lib)
