@@ -17,6 +17,7 @@ public:
     int mW;
     int mH;
     XtQuadtreeNode<_XtRectangle*>* mOwnerNode;
+    static xtobject_kind mKind;
 public:
     _XtRectangle();
     ~_XtRectangle(){};

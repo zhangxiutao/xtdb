@@ -7,6 +7,18 @@ namespace xtdb {
 #define XT_INTID_OFFSET_MASK (~XT_INTID_ALLOC_BIT)
 
 typedef unsigned int uint;
+
+enum class xtobject_kind{
+    RECTANGLE,
+    LINE,
+    BLOCK,
+    INST,
+    NET,
+    PORT,
+    PORTINST,
+    WIRESEG,
+    VIA
+};
 }
 
 #endif // XTTYPES_H

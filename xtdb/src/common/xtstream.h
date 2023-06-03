@@ -12,13 +12,17 @@ namespace xtdb {
 class XtIStream
 {
 private:
-    FILE *mFp;
+    FILE* mFp;
 //    void readError()
 //    {
 //        throw ZIOError(ferror(_f),
 //                     "write failed on database stream; system io error: ");
 //    }
 public:
+    FILE* getFileDescriptor()
+    {
+        return mFp;
+    }
     XtIStream(const std::string& pFileNm)
     {
         mFp = fopen(pFileNm.c_str(), "r");
@@ -102,6 +106,13 @@ public:
         }
         return *this;
     }
+    XtIStream& operator>>(xtobject_kind& pObjKind)
+    {
+        if (R_ABNORMAL == fread(&pObjKind, sizeof(pObjKind), 1, mFp)) {
+//            read_error();
+        }
+        return *this;
+    }
 };
 
 class XtOStream
@@ -126,6 +137,10 @@ public:
     ~XtOStream()
     {
         fclose(mFp);
+    }
+    FILE* getFileDescriptor()
+    {
+        return mFp;
     }
     void close()
     {
@@ -188,6 +203,13 @@ public:
         for (const auto& item : pVecs)
         {
             *this << item;
+        }
+        return *this;
+    }
+    XtOStream& operator<<(xtobject_kind pObjKind)
+    {
+        if (R_ABNORMAL == fwrite(&pObjKind, sizeof(pObjKind), 1, mFp)) {
+//            write_error();
         }
         return *this;
     }

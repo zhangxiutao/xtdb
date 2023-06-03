@@ -1,8 +1,14 @@
 #include "_xtport.h"
 
 namespace xtdb {
-_XtPort::_XtPort():_XtNetObject(PORT)
+xtobject_kind _XtPort::mKind = xtobject_kind::PORT;
+_XtPort::_XtPort()
 {
 
+}
+
+bool _XtPort::operator==(const _XtPort& pRhs)
+{
+    return true;
 }
 }

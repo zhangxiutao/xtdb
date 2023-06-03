@@ -8,16 +8,16 @@ namespace xtdb {
 class XtOperMat
 {
 public:
-    enum TRANSFORM_TYPE{
+    enum class transform_type {
         NONE = 0,
         MIRROR_X,
         MIRROR_Y,
         CLOCK_ROTATE_90,
         COUNTER_CLOCK_ROTATE_90
     };
-    TRANSFORM_TYPE mTrans;
-    XtOperMat():mTrans(NONE){};
-    XtOperMat(const TRANSFORM_TYPE& pTrans);
+    transform_type mTrans;
+    XtOperMat():mTrans(transform_type::NONE){};
+    XtOperMat(const transform_type& pTrans);
 };
 }
 

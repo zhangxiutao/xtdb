@@ -7,6 +7,12 @@ namespace xtdb {
 class _XtLine : public _XtRectangle
 {
 public:
+    enum class direction {
+        HORIZONTAL,
+        VERTICAL
+    };
+    direction mDirection;
+    static xtobject_kind mKind;
     _XtLine();
 };
 }

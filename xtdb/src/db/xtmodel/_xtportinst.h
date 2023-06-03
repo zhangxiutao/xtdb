@@ -8,7 +8,9 @@ class _XtPortInst : public _XtNetObject
 {
 public:
     uint mInstId;
+    static xtobject_kind mKind;
     _XtPortInst();
+    bool operator==(const _XtPortInst& pRhs);
 };
 }
 #endif // _XTPORTINST_H

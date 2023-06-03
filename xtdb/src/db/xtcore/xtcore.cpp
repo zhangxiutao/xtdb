@@ -39,6 +39,11 @@ _XtObject* _XtObject::getOwner() const
     return getTable()->mOwner;
 }
 
+xtobject_kind _XtObject::getKind() const
+{
+    return getTable()->mKind;
+}
+
 void* _XtObject::getExtendedObj(uint pExtendedClassId) const
 {
     return mExtendedObjMap.at(pExtendedClassId);
@@ -72,6 +77,13 @@ uint XtObject::getId() const
 bool XtObject::isAlive() const
 {
     return reinterpret_cast<const _XtObject*>(this)->isAllocated();
+}
+
+xtobject_kind XtObject::getKind() const
+{
+    const _XtObject* obj = reinterpret_cast<const _XtObject*>(this);
+    XtObjectTable* tbl = obj->getTable();
+    return tbl->getObjKind();
 }
 
 XtOStream& operator<<(XtOStream& pOS, _XtFreeObject& pFreeObj)

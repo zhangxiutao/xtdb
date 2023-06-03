@@ -5,9 +5,9 @@
 #include "_xttech.h"
 #include "xtstream.h"
 namespace xtdb {
-
+xtobject_kind _XtRectangle::mKind = xtobject_kind::RECTANGLE;
 _XtRectangle::_XtRectangle():
-    mX1(0), mY1(0), mX2(0), mY2(0), _XtShape(_XtTech::METAL1)
+    mX1(0), mY1(0), mX2(0), mY2(0)
 {
 
 }

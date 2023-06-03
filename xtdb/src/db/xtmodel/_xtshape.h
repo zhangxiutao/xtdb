@@ -7,9 +7,10 @@ class _XtShape: public _XtObject
 {
 public:
     _XtTech::layer_type mLayer;
-    ~_XtShape(){};
+    static xtobject_kind mKind;
 protected:
-    _XtShape(_XtTech::layer_type pLayer);
+    _XtShape();
+    ~_XtShape(){};
 };
 }
 #endif // _XTSHAPE_H

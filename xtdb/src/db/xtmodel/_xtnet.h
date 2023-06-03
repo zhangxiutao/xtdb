@@ -10,12 +10,19 @@ class _XtNet : public _XtObject
 {
 public:
     typedef std::unordered_map<std::type_index, void*> Type2HashTblMap;
+
+    //PERSISTENT MEMBER
+    char* mName;
+
+    //NON-PERSISTANT MEMBER
+    Type2HashTblMap mChildType2HashTblMap; //TODO: fill this map when streaming from file
+    static xtobject_kind mKind;
+    bool operator==(const _XtNet& pRhs);
     _XtNet();
     ~_XtNet();
-    char* mName;
-    Type2HashTblMap mChildType2HashTblMap;
-    uint mWireSegListSize;
 };
+XtIStream& operator>>(XtIStream& pIS, _XtNet& pNet);
+XtOStream& operator<<(XtOStream& pOS, _XtNet& pNet);
 }
 
 #endif // _XTNET_H

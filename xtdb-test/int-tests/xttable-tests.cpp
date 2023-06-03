@@ -34,5 +34,10 @@ TEST_CASE("xttable", "[xttable tests]")
         REQUIRE(((_XtFreeObject*)thirdRect)->mNext == (0 << 7 | 1));
         //test if the next obj of the second obj is the 4th obj
         REQUIRE(xtb.next(2) == 4);
+
+        XtObjectTable* gotTbl = rect->getTable();
+        XtContainer* gotCon = (XtContainer*)gotTbl;
+        uint gotConBegin = gotCon->begin();
+        uint gotConSize = gotCon->size();
     }
 }

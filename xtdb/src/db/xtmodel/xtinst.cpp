@@ -4,6 +4,7 @@
 #include "_xtrectangle.h"
 
 namespace xtdb {
+xtobject_kind _XtInst::mKind = xtobject_kind::INST;
 _XtInst::_XtInst():mName(nullptr), mCellViewNm(nullptr), mBlockId(0), mShapeId(0),
     mOrigin({0,0}), mPlaced(false)
 {
@@ -135,7 +136,7 @@ XtIStream& operator>>(XtIStream& pIS, _XtInst& pInst)
     pIS >> pInst.mOrigin;
 //    pIS >> pInst.mTransform;//TODO: xtopermat
     pIS >> pInst.mPortInstIds;
-//    pIS >> pInst.mCustomParams; //TODO: pdk
+//    pIS >> pInst.mCustomParams; //TODO: pdk  
     return pIS;
 }
 

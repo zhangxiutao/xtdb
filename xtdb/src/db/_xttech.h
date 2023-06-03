@@ -8,7 +8,7 @@ public:
     _XtTech();
 //    static constexpr XtSize canvasSize{800, 800};
 //    static constexpr int gridWidth = 100;
-    enum layer_type
+    enum class layer_type
     {
         METAL1 = 0,
         METAL2,

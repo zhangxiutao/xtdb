@@ -21,6 +21,7 @@ public:
     bool mPlaced;
     std::vector<uint> mPortInstIds;
 //    std::unordered_map<std::string, std::string> mCustomParams;
+    static xtobject_kind mKind;
 public:
    _XtInst();
    ~_XtInst();

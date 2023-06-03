@@ -5,6 +5,7 @@
 namespace xtdb {
 class XtBlock;
 class XtNet;
+class XtShape;
 class XtWireSeg : public XtNetObject
 {
 public:
@@ -12,6 +13,8 @@ public:
     void destroy();
     void setNet(XtNet* pNet);
     XtNet* getNet();
+    void setShape(XtShape* pShape);
+    XtShape* getShape();
 };
 }
 #endif // XTWIRESEG_H

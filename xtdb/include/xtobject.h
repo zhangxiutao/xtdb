@@ -9,6 +9,7 @@ private:
     uint mId;
 public:
     XtObject();
+    xtobject_kind getKind() const;
     uint getId() const;
     bool isAlive() const;
     void* getExtendedObj(uint pExtendedClassId) const;

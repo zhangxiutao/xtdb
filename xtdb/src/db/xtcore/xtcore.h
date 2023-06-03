@@ -4,13 +4,14 @@
 #include "xtstream.h"
 #include "xtobjectpage.h"
 #include <unordered_map>
+#include "xtcontainer.h"
 
 namespace xtdb {
 class _XtObject
 {
 public:
     uint mIntId;
-    std::unordered_map<uint, void*> mExtendedObjMap;
+    std::unordered_map<uint, void*> mExtendedObjMap; //TODO: consider the technique unsed for PCContainer as well
 public:
     void* getExtendedObj(uint pExtendedClassId) const;
     void setExtendedObj(uint pExtendedClassId, void* pExtendedObj);
@@ -19,6 +20,7 @@ public:
     XtObjectTable* getTable() const;
     bool isAllocated() const;
     _XtObject* getOwner() const;
+    xtobject_kind getKind() const;
     _XtObject(){};
     ~_XtObject(){};
 };
@@ -29,12 +31,14 @@ public:
     uint mNext;
 };
 
-class XtObjectTable
+class XtObjectTable : public XtContainer
 {
 public:
     uint mObjSize;
     _XtObject* mOwner;
-    XtObjectTable(uint pObjSize, _XtObject* pObj):mObjSize(pObjSize), mOwner(pObj){};
+    xtobject_kind mKind;
+    XtObjectTable(uint pObjSize, _XtObject* pObj, xtobject_kind pKind):mObjSize(pObjSize), mOwner(pObj), mKind(pKind){};
+    xtobject_kind getObjKind() const {return mKind; };
 };
 
 class _XtNamedObject

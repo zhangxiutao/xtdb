@@ -14,7 +14,6 @@ template <typename Parent_T, typename Child_T>
 class XtPCContainer : public XtContainer
 {
 public:
-//    typedef typename _<Parent_T>::type _Parent_T;
     Parent_T* mParent;
     XtTable<Child_T>* mTbl;
     XtPCContainer(XtTable<Child_T>* pTbl);
@@ -25,6 +24,7 @@ public:
     _XtObject* getPtr(uint pExtId) const override;
     uint size() const override;
     bool empty() const override;
+    xtobject_kind getObjKind() const override;
 };
 
 template <typename Parent_T, typename Child_T>
@@ -70,6 +70,11 @@ bool XtPCContainer<Parent_T, Child_T>::empty() const
 {
     Parent_T* parent = reinterpret_cast<Parent_T*>(mParent);
     return reinterpret_cast<XtHashTable<Parent_T>*>(mParent->mChildType2HashTblMap[typeid(Child_T)])->empty();
+}
+template <typename Parent_T, typename Child_T>
+xtobject_kind XtPCContainer<Parent_T, Child_T>::getObjKind() const
+{
+    return Child_T::mKind;
 }
 }
 #endif // XTPCCONTAINER_H

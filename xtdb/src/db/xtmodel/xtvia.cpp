@@ -1,8 +1,13 @@
 #include "_xtvia.h"
 
 namespace xtdb {
-_XtVia::_XtVia():_XtNetObject(VIA)
+xtobject_kind _XtVia::mKind = xtobject_kind::VIA;
+_XtVia::_XtVia()
 {
 
+}
+bool _XtVia::operator==(const _XtVia& pVia)
+{
+    return true;
 }
 }

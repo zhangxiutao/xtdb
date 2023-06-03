@@ -9,6 +9,8 @@ class _XtPort : public _XtNetObject
 public:
     _XtPort();
     char* mName;
+    static xtobject_kind mKind;
+    bool operator==(const _XtPort& pRhs);
 };
 }
 #endif // _XTPORT_H

@@ -9,5 +9,6 @@
 #include "xtshapequery.h"
 #include "xtnet.h"
 #include "xtwireseg.h"
+#include "xtline.h"
 
 #endif // XTDB_H

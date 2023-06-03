@@ -2,6 +2,7 @@
 #define XTHASHTABLE_H
 #include "xttable.h"
 #include "xttypes.h"
+#include <cassert>
 namespace xtdb {
 template <typename T>
 class XtHashTable
@@ -56,6 +57,11 @@ uint XtHashTable<T>::hashString(const char* str) //TODO: either deal with empty 
 template <typename T>
 void XtHashTable<T>::insert(T* pObj)
 {
+    if (find(pObj->mName))
+    {
+        return;
+    }
+    //TODO: if pObj->mName is nullptr, throw exception
     if (mObjCnt >= mCapacity * overLoadingFactor)
     {
         growTable();
@@ -118,6 +124,10 @@ void XtHashTable<T>::growTable()
 template <typename T>
 T* XtHashTable<T>::find(const char* pName)
 {
+    if (!pName)
+    {
+        return nullptr;
+    }
     if (0 == mCapacity)
     {
         return nullptr;
@@ -126,7 +136,8 @@ T* XtHashTable<T>::find(const char* pName)
     while (0 != cur)
     {
         T* obj = (T*)(mTbl->getPtr(cur));
-        if (pName == obj->mName)
+        assert(obj->mName);
+        if (0 == strcmp(pName, obj->mName))
         {
             return obj;
         }

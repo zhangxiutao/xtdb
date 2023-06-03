@@ -15,7 +15,7 @@ class XtObjectPage;
 class _XtFreeObject;
 class _XtObject;
 template <typename T>
-class XtTable : public XtContainer, public XtObjectTable
+class XtTable : public XtObjectTable
 {
 public:
     XtTablePage** mPages;
@@ -63,7 +63,7 @@ template <typename T>
 XtTable<T>::XtTable(_XtObject* pOwner, uint pPageSize):
     mPages(nullptr), mFreeList(0), mPagesCnt(0), mPagesCap(0),
     mPageSize(pPageSize), mPageMask(pPageSize - 1), mPageShift(log2(pPageSize)),
-    mEndId(0), mBeginId(0), mAllocCnt(0), XtObjectTable(sizeof(T), pOwner)
+    mEndId(0), mBeginId(0), mAllocCnt(0), XtObjectTable(sizeof(T), pOwner, T::mKind)
 {
 }
 

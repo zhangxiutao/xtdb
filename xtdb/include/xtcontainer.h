@@ -12,6 +12,7 @@ public:
     virtual _XtObject* getPtr(uint pExtId) const = 0;
     virtual uint size() const = 0;
     virtual bool empty() const = 0;
+    virtual xtobject_kind getObjKind() const = 0;
 };
 }
-#endif // XTITERATOR_H
+#endif // XTCONTAINER_H

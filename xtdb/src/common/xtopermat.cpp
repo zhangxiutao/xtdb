@@ -1,7 +1,7 @@
 #include "xtopermat.h"
 
 namespace xtdb {
-XtOperMat::XtOperMat(const TRANSFORM_TYPE& pTrans):mTrans(pTrans)
+XtOperMat::XtOperMat(const transform_type& pTrans):mTrans(pTrans)
 {
 
 };

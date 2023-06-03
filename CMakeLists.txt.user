@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE QtCreatorProject>
-<!-- Written by QtCreator 7.0.2, 2023-05-21T10:05:06. -->
+<!-- Written by QtCreator 7.0.2, 2023-05-30T22:39:28. -->
 <qtcreator>
  <data>
   <variable>EnvironmentId</variable>
@@ -75,12 +75,15 @@
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtblock-tests.cpp:xtblock-tests">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:xtnetnetobj-test">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:xtnetwireseg-test">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtnet-tests.cpp:xtwireseg-test">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtset-tests.cpp:iterate through xttable">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtshapequery-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtshapequery-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtshapequery-tests.cpp:region query">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtwireseg-tests.cpp:D:/qtprojects/xtdb/xtdb-test/ext-tests/xtwireseg-tests.cpp">Checked</value>
+    <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/ext-tests/xtwireseg-tests.cpp:add and delete shapes of wiresegs">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/int-tests/stream-tests.cpp:D:/qtprojects/xtdb/xtdb-test/int-tests/stream-tests.cpp">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/int-tests/stream-tests.cpp:xtstream-test">Checked</value>
     <value type="Qt::CheckState" key="1@D:/qtprojects/xtdb/xtdb-test/int-tests/xthashtable-tests.cpp:D:/qtprojects/xtdb/xtdb-test/int-tests/xthashtable-tests.cpp">Checked</value>

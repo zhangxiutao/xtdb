@@ -17,6 +17,7 @@
 #include "xtpccontainer.h"
 
 namespace xtdb {
+xtobject_kind _XtBlock::mKind = xtobject_kind::BLOCK;
 XtTable<_XtBlock> _XtBlock::blockTbl;
 XtHashTable<_XtBlock> _XtBlock::blockHashTbl(&blockTbl);
 
@@ -27,13 +28,13 @@ _XtBlock::_XtBlock():mName(nullptr), mNext(0),
     mWireSegTbl(new XtTable<_XtWireSeg>(this)),
     mPortInstTbl(new XtTable<_XtPortInst>(this)),
     mPortTbl(new XtTable<_XtPort>(this)),
-    mViaTbl(new XtTable<_XtVia>),
-    mLineTbl(new XtTable<_XtLine>),
+    mViaTbl(new XtTable<_XtVia>(this)),
+    mLineTbl(new XtTable<_XtLine>(this)),
     mRectTbl(new XtTable<_XtRectangle>(this)),
-    mNetObjectTbl(new XtTable<_XtNetObject*>(this)),
     mQuadtree(new XtQuadtree<_XtRectangle*>()),
     mNetWireSegContainer(new XtPCContainer<_XtNet, _XtWireSeg>(mWireSegTbl))
 {
+
 }
 
 _XtBlock::~_XtBlock()
@@ -46,14 +47,16 @@ _XtBlock::~_XtBlock()
     delete mViaTbl;
     delete mLineTbl;
     delete mRectTbl;
-    delete mNetObjectTbl;
     delete mQuadtree;
     delete mNetWireSegContainer;
 }
 
 bool _XtBlock::operator==(const _XtBlock& pRhs) const
 {   //TODO: compare more tables
-    return (*mRectTbl == *pRhs.mRectTbl) && (*mInstTbl == *pRhs.mInstTbl);
+    return (*mNetTbl == *pRhs.mNetTbl) && (*mInstTbl == *pRhs.mInstTbl) &&
+            (*mWireSegTbl == *pRhs.mWireSegTbl) && (*mPortInstTbl == *pRhs.mPortInstTbl) &&
+            (*mPortTbl == *pRhs.mPortTbl) && (*mViaTbl == *pRhs.mViaTbl) &&
+            (*mRectTbl == *pRhs.mRectTbl) && (*mLineTbl == *pRhs.mLineTbl);
 }
 
 XtSet<XtShape*> XtBlock::getAllShapes()
@@ -70,13 +73,25 @@ XtSet<XtInst*> XtBlock::getAllInsts()
 XtOStream& operator<<(XtOStream& pOS, _XtBlock& pBlock)
 {
     pOS << *pBlock.mInstTbl;
-    pOS << *pBlock.mRectTbl;    
+    pOS << *pBlock.mNetTbl;
+    pOS << *pBlock.mWireSegTbl;
+//    pOS << *pBlock.mPortInstTbl;
+//    pOS << *pBlock.mPortTbl;
+//    pOS << *pBlock.mViaTbl;
+    pOS << *pBlock.mLineTbl;
+    pOS << *pBlock.mRectTbl;
     return pOS;
 }
 
 XtIStream& operator>>(XtIStream& pIS, _XtBlock& pBlock)
 {
     pIS >> *pBlock.mInstTbl;
+    pIS >> *pBlock.mNetTbl;
+    pIS >> *pBlock.mWireSegTbl;
+//    pOS << *pBlock.mPortInstTbl;
+//    pOS << *pBlock.mPortTbl;
+//    pOS << *pBlock.mViaTbl;
+    pIS >> *pBlock.mLineTbl;
     pIS >> *pBlock.mRectTbl;
     return pIS;
 }
@@ -105,19 +120,26 @@ uint XtBlock::loadAllSubBlocks(const char* pCellViewNm)
     return block->getId();
 }
 
-void XtBlock::setName(const char* pName)
+//only to be used when loading and writting
+void _XtBlock::setName(const char* pName)
 {
-    _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
-    if (block->mName)
+    if (mName)
     {
-        free(block->mName);
+        _XtBlock::blockHashTbl.remove(mName);
+        free(mName);
     }
-    block->mName = strdup(pName);
+    mName = strdup(pName);
+    _XtBlock::blockHashTbl.insert(this);
 }
 
 //load all objects from disk into memory
 void XtBlock::load(const char* pCellViewNm)
 {
+    if (_XtBlock::blockHashTbl.find(pCellViewNm)) //TODO: is it better to detect lock file on hard disk?
+    {
+        //TODO: exception, already loaded
+        return;
+    }
     std::filesystem::path cellViewPath = XtDM::cellViewNmToFilePath(pCellViewNm);
     _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
     XtIStream is(cellViewPath.string());
@@ -136,7 +158,9 @@ void XtBlock::load(const char* pCellViewNm)
     {
         block->mQuadtree->insert(reinterpret_cast<_XtRectangle*>(*it));
     }
-    setName(pCellViewNm);
+    block->setName(pCellViewNm);
+
+    //TODO: construct netwireseg hashset in every netobject
 }
 
 XtSet<XtBlock*> XtBlock::getAllBlocks()
@@ -146,6 +170,11 @@ XtSet<XtBlock*> XtBlock::getAllBlocks()
 
 void XtBlock::saveAndClose(const char* pCellViewNm)
 {
+    if (_XtBlock::blockHashTbl.find(pCellViewNm)) //TODO: is it better to detect lock file on hard disk?
+    {
+        //TODO: exception, already loaded
+        return;
+    }
     write(pCellViewNm);
     destroy(this);
 }
@@ -160,6 +189,8 @@ void XtBlock::write(const char* pCellViewNm)
     file.close();
     XtOStream os(cellViewPath.string());
     os << *block;
+
+    block->setName(pCellViewNm);
 }
 
 bool XtBlock::operator==(const XtBlock& pRhs) const
@@ -177,10 +208,20 @@ void XtBlock::destroy(XtBlock* pBlock)
 {
     _XtBlock* block = reinterpret_cast<_XtBlock*>(pBlock);
     _XtBlock::blockTbl.destroy(block);
+    if (_XtBlock::blockHashTbl.find(block->mName))
+    {
+        _XtBlock::blockHashTbl.remove(block);
+    }
 }
 
 XtSet<XtWireSeg*> XtBlock::getAllWiresegs()
 {
     return XtSet<XtWireSeg*>(reinterpret_cast<_XtBlock*>(this)->mWireSegTbl);
+}
+
+char* XtBlock::getName()
+{
+    _XtBlock* block = reinterpret_cast<_XtBlock*>(this);
+    return block->mName;
 }
 }
